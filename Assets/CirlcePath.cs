@@ -11,6 +11,13 @@ public class CirlcePath : MonoBehaviour
     public float targetMoveMinAngleDifference = 30f;
     public float speedIncreaseAmount = 0.5f;
 
+    private float initialRotationSpeed;
+
+    void Awake()
+    {
+        initialRotationSpeed = rotationSpeed;
+    }
+
     void Update()
     {
         float x = target.position.x + Mathf.Cos(angle) * radius;
@@ -45,6 +52,11 @@ public class CirlcePath : MonoBehaviour
         float increase = Mathf.Abs(speedIncreaseAmount);
         rotationSpeed *= -1f;
         rotationSpeed += Mathf.Sign(rotationSpeed) * increase;
+    }
+
+    public void ResetSpeedToInitial()
+    {
+        rotationSpeed = initialRotationSpeed;
     }
 
     private float GetRandomPathAngle(float currentAngle)

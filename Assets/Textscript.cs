@@ -20,10 +20,10 @@ public class Textscript : MonoBehaviour
 
         if (scoreSource == null)
         {
-            scoreText.text = "Score: 0";
+            scoreText.text = "0";
             return;
         }
 
-        scoreText.text = "Score: " + scoreSource.score;
+        scoreText.text = scoreSource.score.ToString();
     }
 }
