@@ -72,6 +72,7 @@ public class circleclicking : MonoBehaviour
             return false;
         }
 
-        return circleCollider.bounds.Intersects(targetCollider.bounds);
+        ColliderDistance2D distanceInfo = circleCollider.Distance(targetCollider);
+        return distanceInfo.isOverlapped || distanceInfo.distance <= 0f;
     }
 }
