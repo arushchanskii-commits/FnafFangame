@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      scarymonster_0: 7172931054398493713
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
