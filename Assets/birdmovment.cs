@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class cactusmovement : MonoBehaviour
+public class birdmovment : MonoBehaviour
 {
     public float speed = 5;
     public float deathzone = -30;
