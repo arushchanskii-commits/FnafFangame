@@ -6,7 +6,9 @@ public class circleclicking : MonoBehaviour
     public int score = 0;
     public int hitScoreAmount = 1;
     public int missScoreAmount = -5000;
+    public int targetScore = 5;
 
+    private bool hasAdvanced;
     private Collider2D circleCollider;
     private Collider2D targetCollider;
     private CirlcePath circlePath;
@@ -61,6 +63,13 @@ public class circleclicking : MonoBehaviour
             {
                 score += missScoreAmount;
                 Debug.Log("Pressed F but the circle is not touching the target object. score=" + score);
+            }
+
+            if (!hasAdvanced && score >= targetScore)
+            {
+                hasAdvanced = true;
+                Debug.Log("Target score reached. Advancing to next minigame.");
+                MiniGameSwapper.CompleteCurrentMiniGame();
             }
         }
     }
