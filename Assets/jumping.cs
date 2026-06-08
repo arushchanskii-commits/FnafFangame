@@ -11,7 +11,7 @@ public class jumping : MonoBehaviour
     public float groundCheckRadius = 0.1f;
 
     private Rigidbody2D rb;
-    private float nextJumpTime;
+    private float jumpCooldownTimer;
 
     void Awake()
     {
@@ -25,10 +25,15 @@ public class jumping : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && Time.time >= nextJumpTime)
+        if (jumpCooldownTimer > 0f)
+        {
+            jumpCooldownTimer -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && jumpCooldownTimer <= 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            nextJumpTime = Time.time + jumpCooldown;
+            jumpCooldownTimer = jumpCooldown;
         }
     }
 
