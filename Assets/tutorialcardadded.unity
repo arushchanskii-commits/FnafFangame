@@ -554,13 +554,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameSceneEntries:
-  - sceneName: different scenes added
+  - sceneName: tutorialcardadded
     stayLoaded: 1
     timeLimitSeconds: 1e+16
   - sceneName: SkillCheck
     stayLoaded: 0
     timeLimitSeconds: 1e+34
   - sceneName: DinoSaurGame
+    stayLoaded: 0
+    timeLimitSeconds: 3.402823e+38
+  - sceneName: hotwire
     stayLoaded: 0
     timeLimitSeconds: 3.402823e+38
 --- !u!4 &340483091

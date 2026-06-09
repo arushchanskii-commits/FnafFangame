@@ -279,7 +279,7 @@ MonoBehaviour:
   score: 0
   hitScoreAmount: 1
   missScoreAmount: -10
-  targetScore: 5
+  targetScore: 2
 --- !u!1 &814808524
 GameObject:
   m_ObjectHideFlags: 0
