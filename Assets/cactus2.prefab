@@ -149,3 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   deathzone: -30
+  targetPrefabs:
+  - {fileID: 4156824022347987393}
+  targetTag: JumpObjects
