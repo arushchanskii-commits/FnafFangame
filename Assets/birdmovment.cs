@@ -4,6 +4,7 @@ public class birdmovment : MonoBehaviour
 {
     public float speed = 5;
     public float deathzone = -30;
+    public LogicScript logic;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,5 +20,9 @@ public class birdmovment : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Bird murder attempt success");
     }
 }
