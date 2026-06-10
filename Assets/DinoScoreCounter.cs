@@ -50,11 +50,26 @@ public class DinoScoreCounter : MonoBehaviour
         if (other == null)
             return false;
 
-        if (targetObject != null && other == targetObject)
-            return true;
+        if (targetObject != null)
+        {
+            if (other == targetObject)
+                return true;
 
-        if (!string.IsNullOrEmpty(targetTag) && other.CompareTag(targetTag))
-            return true;
+            if (other.transform.IsChildOf(targetObject.transform))
+                return true;
+
+            if (targetObject.transform.IsChildOf(other.transform))
+                return true;
+        }
+
+        if (!string.IsNullOrEmpty(targetTag))
+        {
+            if (other.CompareTag(targetTag))
+                return true;
+
+            if (other.transform.root.CompareTag(targetTag))
+                return true;
+        }
 
         return false;
     }
@@ -83,33 +98,21 @@ public class DinoScoreCounter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (IsScoringObject(other.gameObject))
-        {
-            AddPoint();
-        }
+        AddPoint();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (IsScoringObject(collision.gameObject))
-        {
-            AddPoint();
-        }
+        AddPoint();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (IsScoringObject(other.gameObject))
-        {
-            AddPoint();
-        }
+        AddPoint();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsScoringObject(collision.gameObject))
-        {
-            AddPoint();
-        }
+        AddPoint();
     }
 }
