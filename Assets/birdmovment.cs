@@ -13,7 +13,7 @@ public class birdmovment : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        NormalizeTransform();
     }
 
     // Update is called once per frame
@@ -46,5 +46,14 @@ public class birdmovment : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    private void NormalizeTransform()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x),
+            Mathf.Abs(transform.localScale.y),
+            Mathf.Abs(transform.localScale.z));
     }
 }

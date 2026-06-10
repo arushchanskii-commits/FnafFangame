@@ -38,11 +38,26 @@ public class cactusspawn : MonoBehaviour
     }
     void spawncactus()
     {
-        Instantiate(cactusprefab, transform.position, transform.rotation);
+        GameObject spawned = Instantiate(cactusprefab, transform.position, Quaternion.identity);
+        NormalizeSpawnedObject(spawned);
     }
+
     void spawnbird()
     {
         Vector3 spawnPosition = transform.position + new Vector3(0, 1f, 0);
-        Instantiate(birdprefab, spawnPosition, transform.rotation);
+        GameObject spawned = Instantiate(birdprefab, spawnPosition, Quaternion.identity);
+        NormalizeSpawnedObject(spawned);
+    }
+
+    private void NormalizeSpawnedObject(GameObject spawned)
+    {
+        if (spawned == null)
+            return;
+
+        spawned.transform.rotation = Quaternion.identity;
+        spawned.transform.localScale = new Vector3(
+            Mathf.Abs(spawned.transform.localScale.x),
+            Mathf.Abs(spawned.transform.localScale.y),
+            Mathf.Abs(spawned.transform.localScale.z));
     }
 }
