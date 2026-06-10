@@ -150,3 +150,6 @@ MonoBehaviour:
   speed: 5
   deathzone: -30
   logic: {fileID: 0}
+  targetPrefabs:
+  - {fileID: 8003199561506354010}
+  targetTag: JumpingObjects

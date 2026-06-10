@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class DinoScoreCounter : MonoBehaviour
 {
-    [Tooltip("Prefab used by cactus objects to score points.")]
-    public GameObject cactusPrefab;
+    [Tooltip("Scene object that counts as the scoring target.")]
+    public GameObject targetObject;
 
-    [Tooltip("Prefab used by bird objects to score points.")]
-    public GameObject birdPrefab;
+    [Tooltip("Optional tag to identify valid targets if the target object is not set.")]
+    public string targetTag;
 
     [Tooltip("Score required to advance to the next scene.")]
     public int scoreThreshold = 5;
@@ -47,22 +47,16 @@ public class DinoScoreCounter : MonoBehaviour
 
     private bool IsScoringObject(GameObject other)
     {
-        return PrefabMatches(other, cactusPrefab) || PrefabMatches(other, birdPrefab);
-    }
-
-    private static bool PrefabMatches(GameObject other, GameObject prefab)
-    {
-        if (prefab == null || other == null)
+        if (other == null)
             return false;
 
-        string otherName = CleanName(other.name);
-        string prefabName = CleanName(prefab.name);
-        return otherName == prefabName;
-    }
+        if (targetObject != null && other == targetObject)
+            return true;
 
-    private static string CleanName(string rawName)
-    {
-        return rawName.Replace("(Clone)", "").Trim();
+        if (!string.IsNullOrEmpty(targetTag) && other.CompareTag(targetTag))
+            return true;
+
+        return false;
     }
 
     private void AdvanceToNextScene()
