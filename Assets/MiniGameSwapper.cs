@@ -48,7 +48,24 @@ public class MiniGameSwapper : MonoBehaviour
             return;
         }
 
+        PrintConfiguredEntries();
         LoadSceneEntry(currentIndex, true);
+    }
+
+    private void PrintConfiguredEntries()
+    {
+        Debug.Log($"MiniGameSwapper: Printing {miniGameSceneEntries.Count} configured entries for debugging.");
+        for (int i = 0; i < miniGameSceneEntries.Count; i++)
+        {
+            var e = miniGameSceneEntries[i];
+            if (e == null)
+            {
+                Debug.LogWarning($"MiniGameSwapper: Entry {i} is null.");
+                continue;
+            }
+
+            Debug.Log($"MiniGameSwapper: Entry {i} -> sceneName='{e.sceneName}', stayLoaded={e.stayLoaded}, timeLimit={e.timeLimitSeconds}");
+        }
     }
 
     private void LoadSceneEntry(int index, bool useSingle)
@@ -71,8 +88,15 @@ public class MiniGameSwapper : MonoBehaviour
             return;
         }
 
+        Debug.Log($"MiniGameSwapper: Loading scene '{entry.sceneName}' at entry index {index} using mode {(useSingle ? LoadSceneMode.Single : LoadSceneMode.Additive)}.");
+        Debug.Log($"MiniGameSwapper: currentIndex={currentIndex}, entriesCount={miniGameSceneEntries.Count}.");
+        
         StopSceneTimer();
         var loadMode = useSingle ? LoadSceneMode.Single : LoadSceneMode.Additive;
+        if (useSingle)
+        {
+            loadedSceneNames.Clear();
+        }
         SceneManager.LoadScene(entry.sceneName, loadMode);
         if (!loadedSceneNames.Contains(entry.sceneName))
         {
@@ -87,10 +111,12 @@ public class MiniGameSwapper : MonoBehaviour
 
     public void OnMiniGameComplete()
     {
+        Debug.Log($"MiniGameSwapper: OnMiniGameComplete called at currentIndex {currentIndex}.");
         StopSceneTimer();
 
         if (currentIndex < 0 || currentIndex >= miniGameSceneEntries.Count)
         {
+            Debug.LogWarning($"MiniGameSwapper: currentIndex {currentIndex} is out of range on complete.");
             return;
         }
 
@@ -99,7 +125,15 @@ public class MiniGameSwapper : MonoBehaviour
 
         if (currentIndex >= miniGameSceneEntries.Count)
         {
-            Debug.Log("MiniGameSwapper: All minigames completed.");
+            Debug.Log("MiniGameSwapper: Last minigame completed. Resetting to first scene.");
+
+            if (completedEntry != null && !completedEntry.stayLoaded)
+            {
+                UnloadSceneIfLoaded(completedEntry.sceneName);
+            }
+
+            currentIndex = 0;
+            LoadSceneEntry(currentIndex, true);
             return;
         }
 
@@ -161,6 +195,8 @@ public class MiniGameSwapper : MonoBehaviour
             Debug.LogWarning("MiniGameSwapper: No instance found. Make sure a MiniGameSwapper exists in the first scene.");
             return;
         }
+
+        Debug.Log("MiniGameSwapper: CompleteCurrentMiniGame invoked.");
 
         instance.OnMiniGameComplete();
     }

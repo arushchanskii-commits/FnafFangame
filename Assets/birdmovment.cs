@@ -10,6 +10,9 @@ public class birdmovment : MonoBehaviour
 
     [Tooltip("Optional tag to identify valid targets if target object is not set.")]
     public string targetTag = "Target";
+
+    [Tooltip("Global scene name to load when this collision kills the target.")]
+    public string deathSceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,7 +33,14 @@ public class birdmovment : MonoBehaviour
     {
         if (IsValidTarget(collision.gameObject))
         {
-            Debug.Log("Bird murder attempt success");
+            if (!string.IsNullOrWhiteSpace(deathSceneName))
+            {
+                Death.GlobalDeath(deathSceneName);
+            }
+            else
+            {
+                Death.death(collision.gameObject);
+            }
         }
     }
 

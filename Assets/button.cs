@@ -1,20 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class button : MonoBehaviour
 {
-    // Advance to the next scene in the build settings
+    // Advance by completing the current minigame via MiniGameSwapper
     public void AdvanceScene()
     {
-        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextScene < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextScene);
-        }
-        else
-        {
-            Debug.Log("button: no next scene in build settings.");
-        }
+        MiniGameSwapper.CompleteCurrentMiniGame();
     }
 
     // For desktop: clicking the object (requires a Collider)
