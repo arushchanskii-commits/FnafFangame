@@ -38,6 +38,7 @@ public class circleclicking : MonoBehaviour
         if (circlePath == null)
         {
             Debug.LogWarning("circleclicking requires a CirlcePath component on the same GameObject to reverse speed.");
+
         }
     }
 
@@ -63,6 +64,13 @@ public class circleclicking : MonoBehaviour
             {
                 score += missScoreAmount;
                 Debug.Log("Pressed F but the circle is not touching the target object. score=" + score);
+            }
+
+            if (score < 0)
+            {
+                Debug.Log("Score dropped below zero. Loading DeathScreen.");
+                Death.GoToScene("DeathScreen");
+                return;
             }
 
             if (!hasAdvanced && score >= targetScore)
