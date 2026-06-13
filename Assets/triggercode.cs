@@ -15,6 +15,6 @@ public class triggercode : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            Debug.Log("Trigger Entered");
+            Death.GoToScene("DeathScreen");
     }
 }

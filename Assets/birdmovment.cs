@@ -33,14 +33,7 @@ public class birdmovment : MonoBehaviour
     {
         if (IsValidTarget(collision.gameObject))
         {
-            if (!string.IsNullOrWhiteSpace(deathSceneName))
-            {
-                Death.GlobalDeath(deathSceneName);
-            }
-            else
-            {
-                Death.death(collision.gameObject);
-            }
+            Death.GoToScene("DeathScreen");
         }
     }
 

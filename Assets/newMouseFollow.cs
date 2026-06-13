@@ -5,6 +5,9 @@ public class newMouseFollow : MonoBehaviour
     [Tooltip("Camera used to convert screen cursor position into world space. If left empty, Camera.main will be used.")]
     public Camera targetCamera;
 
+    [Tooltip("Optional tag to find the camera at runtime if no direct reference is available.")]
+    public string cameraTag = "HotWireCamera";
+
     [Tooltip("World-space Z distance from the camera to place the follower object.")]
     public float worldZDistance = 10f;
 
@@ -18,9 +21,18 @@ public class newMouseFollow : MonoBehaviour
             targetCamera = Camera.main;
         }
 
+        if (targetCamera == null && !string.IsNullOrEmpty(cameraTag))
+        {
+            var cameraObject = GameObject.FindGameObjectWithTag(cameraTag);
+            if (cameraObject != null)
+            {
+                targetCamera = cameraObject.GetComponent<Camera>();
+            }
+        }
+
         if (targetCamera == null)
         {
-            Debug.LogWarning("newMouseFollow: No camera found. Please assign a Camera in the Inspector.");
+            Debug.LogWarning("newMouseFollow: No camera found. Please assign a Camera in the Inspector or add the main camera tag.");
         }
     }
 
@@ -32,7 +44,7 @@ public class newMouseFollow : MonoBehaviour
         }
 
         Vector3 mouseScreenPosition = Input.mousePosition;
-        mouseScreenPosition.z = worldZDistance;
+        mouseScreenPosition.z = targetCamera.WorldToScreenPoint(transform.position).z;
         Vector3 targetPosition = targetCamera.ScreenToWorldPoint(mouseScreenPosition);
 
         if (followSpeed > 0f)

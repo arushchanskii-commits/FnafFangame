@@ -6,6 +6,7 @@ TagManager:
   tags:
   - JumpingObjects
   - MouseFollower
+  - HotWireCamera
   layers:
   - Default
   - TransparentFX

@@ -200,4 +200,18 @@ public class MiniGameSwapper : MonoBehaviour
 
         instance.OnMiniGameComplete();
     }
+
+    public static void ResetToFirstScene()
+    {
+        if (instance == null)
+        {
+            Debug.LogWarning("MiniGameSwapper: No instance found. Make sure a MiniGameSwapper exists in the first scene.");
+            return;
+        }
+
+        Debug.Log("MiniGameSwapper: ResetToFirstScene invoked.");
+
+        instance.currentIndex = 0;
+        instance.LoadSceneEntry(0, true);
+    }
 }

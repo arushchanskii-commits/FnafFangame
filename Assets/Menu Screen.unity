@@ -627,6 +627,9 @@ MonoBehaviour:
   - sceneName: tutorialcardadded
     stayLoaded: 1
     timeLimitSeconds: 1e+16
+  - sceneName: HotwireCorrectPlacement
+    stayLoaded: 0
+    timeLimitSeconds: 3.402823e+38
   - sceneName: hotwire
     stayLoaded: 0
     timeLimitSeconds: 3.402823e+38

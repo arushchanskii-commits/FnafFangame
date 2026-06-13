@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HotwireEnding : MonoBehaviour
 {
-    [Tooltip("The specific GameObject that should trigger the next minigame when it touches this object.")]
+    [Tooltip("The specific GameObject or prefab asset that should trigger the next minigame when it touches this object.")]
     public GameObject targetObject;
 
     [Tooltip("If true, the collision with a child object of the target will also count as a hit.")]
@@ -55,7 +55,41 @@ public class HotwireEnding : MonoBehaviour
             return true;
         }
 
-        if (targetChildrenAlsoMatch && other.transform.IsChildOf(targetObject.transform))
+        if (targetObject != null)
+        {
+            if (IsNameMatch(other.name, targetObject.name))
+            {
+                return true;
+            }
+
+            var root = other.transform.root.gameObject;
+            if (root != null && IsNameMatch(root.name, targetObject.name))
+            {
+                return true;
+            }
+        }
+
+        if (targetChildrenAlsoMatch && targetObject != null && targetObject.scene.IsValid() && other.transform.IsChildOf(targetObject.transform))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsNameMatch(string objectName, string targetName)
+    {
+        if (objectName == targetName)
+        {
+            return true;
+        }
+
+        if (objectName == targetName + "(Clone)")
+        {
+            return true;
+        }
+
+        if (objectName.StartsWith(targetName + " ("))
         {
             return true;
         }
