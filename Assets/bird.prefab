@@ -148,3 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  deathzone: -30
+  logic: {fileID: 0}
+  targetObject: {fileID: 0}
+  targetTag: Target
+  deathSceneName: 
