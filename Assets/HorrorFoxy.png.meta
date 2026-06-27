@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HorrorFoxy_0: 6912386292889275969
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

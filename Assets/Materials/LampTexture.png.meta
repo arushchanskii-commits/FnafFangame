@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 266d3b1fd6cf9024297de294d03ba95e
+guid: e62e95a7618fddd4da6e0caf269bde76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 796357280093452207
-    second: Bild_2026-06-21_153900486-Photoroom_0
+      213: 6153093910637546833
+    second: LampTexture_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bild_2026-06-21_153900486-Photoroom_0
+      name: LampTexture_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 291
-        height: 318
+        width: 380
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa7344a1aba3d0b00800000000000000
-      internalID: 796357280093452207
+      spriteID: 15d8b2daf4e246550800000000000000
+      internalID: 6153093910637546833
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Bild_2026-06-21_153900486-Photoroom_0: 796357280093452207
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

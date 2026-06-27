@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 266d3b1fd6cf9024297de294d03ba95e
+guid: b7790998c957d63428e58670b4ea8d22
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 796357280093452207
-    second: Bild_2026-06-21_153900486-Photoroom_0
+      213: 3439754381920948451
+    second: Arcade_Color_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bild_2026-06-21_153900486-Photoroom_0
+      name: Arcade_Color_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 291
-        height: 318
+        width: 2024
+        height: 2024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa7344a1aba3d0b00800000000000000
-      internalID: 796357280093452207
+      spriteID: 3e0ddf0c2667cbf20800000000000000
+      internalID: 3439754381920948451
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Bild_2026-06-21_153900486-Photoroom_0: 796357280093452207
+      Arcade_Color_0: 3439754381920948451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 266d3b1fd6cf9024297de294d03ba95e
+guid: 550a1c6d8e525664696b06cfad0c6b2a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 796357280093452207
-    second: Bild_2026-06-21_153900486-Photoroom_0
+      213: -6718720453205748192
+    second: white-wall-textures_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bild_2026-06-21_153900486-Photoroom_0
+      name: white-wall-textures_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 291
-        height: 318
+        width: 4016
+        height: 4016
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa7344a1aba3d0b00800000000000000
-      internalID: 796357280093452207
+      spriteID: 0261589585f42c2a0800000000000000
+      internalID: -6718720453205748192
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Bild_2026-06-21_153900486-Photoroom_0: 796357280093452207
+      white-wall-textures_0: -6718720453205748192
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
