@@ -6,6 +6,10 @@ public class TargetLightController : MonoBehaviour
     public Light targetLight;
     public float lightIntensity = 2f;
     
+    [Header("Target Object")]
+    [Tooltip("Object that disappears when the light is on")]
+    public GameObject lightTargetObject;
+    
     [Header("Audio")]
     public AudioClip clickSound;
     public AudioClip disabledClickSound;
@@ -102,6 +106,12 @@ public class TargetLightController : MonoBehaviour
         {
             targetLight.enabled = true;
             targetLight.intensity = lightIntensity;
+            
+            if (lightTargetObject != null)
+            {
+                lightTargetObject.SetActive(false);
+            }
+            
             Debug.Log($"Light enabled: {targetLight.enabled}");
             Debug.Log($"Light intensity: {targetLight.intensity}");
             Debug.Log($"Light range: {targetLight.range}");
@@ -133,6 +143,12 @@ public class TargetLightController : MonoBehaviour
         {
             targetLight.enabled = false;
             targetLight.intensity = originalIntensity;
+            
+            if (lightTargetObject != null)
+            {
+                lightTargetObject.SetActive(true);
+            }
+            
             Debug.Log($"Light disabled, intensity: {originalIntensity}");
             
             if (isPowerRegistered)

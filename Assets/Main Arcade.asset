@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Main Arcade
   m_EditorClassIdentifier: 
   roomName: Main Arcade
+  cameraIndex: 1

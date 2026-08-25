@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class LightFlicker : MonoBehaviour
 {
     [Header("Flicker Settings")]
     public Light targetLight;
-    public Light secondaryLight;
+    public List<Light> secondaryLights = new List<Light>();
     public bool isFlickering = false;
     public bool isLightOn = true;
     
@@ -19,8 +20,8 @@ public class LightFlicker : MonoBehaviour
     
     private float currentTimer = 0f;
     private float flickerInterval = 0f;
-    private float secondaryLightOriginalIntensity = 0f;
-    private bool secondaryLightWasOn = false;
+    private List<float> secondaryLightOriginalIntensities = new List<float>();
+    private List<bool> secondaryLightWasOnes = new List<bool>();
 
     private void Start()
     {
@@ -35,11 +36,22 @@ public class LightFlicker : MonoBehaviour
             isLightOn = targetLight.enabled;
         }
         
-        // Store secondary light original state if assigned
-        if (secondaryLight != null)
+        // Store secondary light original states if assigned
+        secondaryLightOriginalIntensities.Clear();
+        secondaryLightWasOnes.Clear();
+        
+        foreach (Light secLight in secondaryLights)
         {
-            secondaryLightOriginalIntensity = secondaryLight.intensity;
-            secondaryLightWasOn = secondaryLight.enabled;
+            if (secLight != null)
+            {
+                secondaryLightOriginalIntensities.Add(secLight.intensity);
+                secondaryLightWasOnes.Add(secLight.enabled);
+            }
+            else
+            {
+                secondaryLightOriginalIntensities.Add(0f);
+                secondaryLightWasOnes.Add(false);
+            }
         }
     }
 
@@ -57,10 +69,14 @@ public class LightFlicker : MonoBehaviour
                 targetLight.enabled = true;
                 targetLight.intensity = originalIntensity;
             }
-            if (secondaryLight != null)
+            // Restore secondary lights
+            for (int i = 0; i < secondaryLights.Count && i < secondaryLightOriginalIntensities.Count && i < secondaryLightWasOnes.Count; i++)
             {
-                secondaryLight.enabled = secondaryLightWasOn;
-                secondaryLight.intensity = secondaryLightOriginalIntensity;
+                if (secondaryLights[i] != null)
+                {
+                    secondaryLights[i].enabled = secondaryLightWasOnes[i];
+                    secondaryLights[i].intensity = secondaryLightOriginalIntensities[i];
+                }
             }
         }
             return;
@@ -108,13 +124,16 @@ public class LightFlicker : MonoBehaviour
             targetLight.intensity = originalIntensity;
         }
         
-        // Toggle secondary light in sync
-        if (secondaryLight != null)
+        // Toggle secondary lights in sync
+        for (int i = 0; i < secondaryLights.Count; i++)
         {
-            secondaryLight.enabled = isLightOn;
-            if (isLightOn)
+            if (secondaryLights[i] != null)
             {
-                secondaryLight.intensity = secondaryLightOriginalIntensity;
+                secondaryLights[i].enabled = isLightOn;
+                if (isLightOn && i < secondaryLightOriginalIntensities.Count)
+                {
+                    secondaryLights[i].intensity = secondaryLightOriginalIntensities[i];
+                }
             }
         }
     }

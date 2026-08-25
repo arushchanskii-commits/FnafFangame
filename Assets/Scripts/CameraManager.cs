@@ -63,6 +63,11 @@ public class CameraManager : MonoBehaviour
         DisableAllCameras();
         mainCamera.enabled = true;
         activeCamera = mainCamera;
+        
+        if (PowerManager.Instance != null)
+        {
+            PowerManager.Instance.UnregisterDevice(PowerManager.DeviceType.Camera);
+        }
     }
 
     public void SwitchToCamera(int index)
@@ -151,6 +156,19 @@ public class CameraManager : MonoBehaviour
         else
         {
             SwitchToCamera(cameraIndexOnToggle);
+        }
+        
+        if (PowerManager.Instance != null)
+        {
+            PowerManager.Instance.RegisterDevice(PowerManager.DeviceType.Camera);
+        }
+    }
+    
+    private void OnMainCameraActivated()
+    {
+        if (PowerManager.Instance != null)
+        {
+            PowerManager.Instance.UnregisterDevice(PowerManager.DeviceType.Camera);
         }
     }
 

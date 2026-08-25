@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Animatronics")]
     public List<AnimatronicAI> animatronics = new();
+    
+    [Header("Jumpscare")]
+    public JumpscareController jumpscareController;
 
     [Header("Events")]
     public UnityEvent<string> onGameOver;
@@ -45,7 +48,8 @@ public class GameManager : MonoBehaviour
 
         foreach (var anim in animatronics)
         {
-            anim.Initialize(night);
+            // Use the AI score from Inspector, not the night number
+            anim.Initialize(anim.aiScore);
             anim.OnJumpscare += () => TriggerGameOver(anim.animatronicName);
         }
 
@@ -71,6 +75,31 @@ public class GameManager : MonoBehaviour
             anim.Deactivate();
 
         Debug.Log($"Game Over – getötet von {killer}");
+        
+        // Trigger jumpscare if controller is assigned
+        if (jumpscareController != null)
+        {
+            // Find the killer animatronic
+            AnimatronicAI killerAnim = null;
+            foreach (var anim in animatronics)
+            {
+                if (anim.animatronicName == killer)
+                {
+                    killerAnim = anim;
+                    break;
+                }
+            }
+            
+            if (killerAnim != null)
+            {
+                jumpscareController.TriggerJumpscare(killerAnim);
+            }
+            else
+            {
+                Debug.LogWarning($"Killer animatronic '{killer}' not found in animatronics list");
+            }
+        }
+        
         onGameOver?.Invoke(killer);
     }
 

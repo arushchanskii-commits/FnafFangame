@@ -41,11 +41,6 @@ public class GeneratorRotation : MonoBehaviour
         
         // Calculate the offset from the center
         orbitOffset = transform.position - orbitCenter;
-        
-        Debug.Log($"Starting position: {originalPosition}");
-        Debug.Log($"Orbit center: {orbitCenter}");
-        Debug.Log($"Orbit offset: {orbitOffset}");
-        Debug.Log($"Starting rotation: {originalRotation.eulerAngles}");
     }
 
     private void Update()
@@ -73,7 +68,7 @@ public class GeneratorRotation : MonoBehaviour
             // Self-rotate the object around its own axis, preserving original rotation
             transform.rotation = originalRotation * Quaternion.Euler(rotationAxis * selfRotationAngle);
             
-            Debug.Log($"Orbit angle: {orbitAngle:F1}, Position: {transform.position}, Rotation: {transform.rotation.eulerAngles}");
+
         }
         else
         {
@@ -82,8 +77,6 @@ public class GeneratorRotation : MonoBehaviour
             selfRotationAngle = 0f;
             transform.position = originalPosition;
             transform.rotation = originalRotation;
-            
-            Debug.Log($"Reset to: {transform.position}, rotation: {transform.rotation.eulerAngles}");
         }
     }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Dining Hall
   m_EditorClassIdentifier: 
   roomName: Dining Hall
+  cameraIndex: 0

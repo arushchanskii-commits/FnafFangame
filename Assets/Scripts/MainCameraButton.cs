@@ -35,11 +35,17 @@ public class MainCameraButton : MonoBehaviour
     [Header("Generator Reference")]
     public PowerCharger powerCharger;
     
+    [Header("Office Camera Position (Set in Inspector)")]
+    [Tooltip("The position the camera should return to when cameras are closed")]
+    public Vector3 originalCameraPosition = new Vector3(0f, 0f, 0f);
+    [Tooltip("The rotation the camera should return to when cameras are closed")]
+    public Quaternion originalCameraRotation = Quaternion.identity;
+    
     private AudioSource audioSource;
-    private Vector3 originalCameraPosition;
-    private Quaternion originalCameraRotation;
-    private bool isCameraOpen = false;
-    private bool isAnimating = false;
+    public bool isCameraOpen = false;
+    public bool isAnimating = false;
+    private float lastToggleTime = 0f;
+    private float toggleCooldown = 0.3f;
 
     private void Start()
     {
@@ -55,19 +61,15 @@ public class MainCameraButton : MonoBehaviour
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
-            Debug.Log("MainCamera auto-assigned to Camera.main");
         }
         
         if (mainCamera != null)
         {
-            originalCameraPosition = mainCamera.transform.position;
-            originalCameraRotation = mainCamera.transform.rotation;
-            Debug.Log($"Original camera position saved: {originalCameraPosition}");
-            Debug.Log($"Original camera rotation saved: {originalCameraRotation}");
-        }
-        else
-        {
-            Debug.LogError("No main camera found in scene!");
+            if (originalCameraPosition == Vector3.zero && originalCameraRotation == Quaternion.identity)
+            {
+                originalCameraPosition = mainCamera.transform.position;
+                originalCameraRotation = mainCamera.transform.rotation;
+            }
         }
         
         foreach (GameObject button in cameraButtons)
@@ -82,39 +84,17 @@ public class MainCameraButton : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ToggleCameraButtons();
-        }
+        // Space bar toggle disabled - only use mouse click on camera button
         
         // Check for power outage and close cameras automatically
+        // Only trigger if power actually went out (not just during charging)
         if (PowerManager.Instance != null && !PowerManager.Instance.CanUseDevice() && isCameraOpen && !isAnimating)
         {
-            Debug.Log("Power outage detected! isCameraOpen: " + isCameraOpen + ", isAnimating: " + isAnimating);
-            ForceCloseCameras();
-        }
-        else if (PowerManager.Instance == null)
-        {
-            Debug.LogWarning("PowerManager is null! Power outage detection won't work.");
-        }
-        
-        // Hide button on power outage or while generator is charging
-        bool shouldHide = false;
-        
-        if (PowerManager.Instance != null && !PowerManager.Instance.CanUseDevice())
-        {
-            shouldHide = true;
-        }
-        
-        if (powerCharger != null && powerCharger.isCharging)
-        {
-            shouldHide = true;
-        }
-        
-        if (shouldHide && gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-            Debug.Log("MainCameraButton hidden (power outage or charging)");
+            // Only force close if power is actually out (0%), not just during charging
+            if (PowerManager.Instance.currentPower <= 0)
+            {
+                ForceCloseCameras();
+            }
         }
     }
 
@@ -125,6 +105,8 @@ public class MainCameraButton : MonoBehaviour
             return;
         }
 
+        ResolveAnimationComponents();
+        
         Debug.Log("ToggleCameraButtons called!");
         isCameraOpen = !isCameraOpen;
         Debug.Log($"Camera state: {isCameraOpen}");
@@ -152,6 +134,12 @@ public class MainCameraButton : MonoBehaviour
                 Debug.LogWarning("Open sound not configured");
             }
             
+            // Register camera power consumption
+            if (PowerManager.Instance != null)
+            {
+                PowerManager.Instance.RegisterDevice(PowerManager.DeviceType.Camera);
+            }
+            
             // Switch to camera view
             if (cameraViews != null && cameraViews.Length > 0)
             {
@@ -171,7 +159,12 @@ public class MainCameraButton : MonoBehaviour
             
             if (!isAnimating)
             {
-                if (animator != null)
+                if (HasLegacyClip(openAnimationClipName))
+                {
+                    Debug.Log("Legacy Animation clip found, playing open clip");
+                    StartCoroutine(PlayLegacyAnimationOnce(openAnimationClipName));
+                }
+                else if (ShouldUseAnimator(openTrigger))
                 {
                     Debug.Log("Animator found, triggering open animation");
                     StartCoroutine(PlayAnimationOnce(openTrigger));
@@ -199,9 +192,20 @@ public class MainCameraButton : MonoBehaviour
                 Debug.LogWarning("Close sound not configured");
             }
             
+            // Unregister camera power consumption
+            if (PowerManager.Instance != null)
+            {
+                PowerManager.Instance.UnregisterDevice(PowerManager.DeviceType.Camera);
+            }
+            
             if (!isAnimating)
             {
-                if (animator != null)
+                if (HasLegacyClip(closeAnimationClipName))
+                {
+                    Debug.Log("Legacy Animation clip found, playing close clip");
+                    StartCoroutine(PlayLegacyAnimationOnce(closeAnimationClipName));
+                }
+                else if (ShouldUseAnimator(closeTrigger))
                 {
                     Debug.Log("Animator found, triggering close animation");
                     StartCoroutine(PlayAnimationOnce(closeTrigger));
@@ -249,6 +253,11 @@ public class MainCameraButton : MonoBehaviour
             TryFindAnimationComponentByName();
         }
 
+        if (legacyAnimation == null)
+        {
+            TryFindLegacyAnimationByClipNames();
+        }
+
         if (animationTarget == null)
         {
             if (animator != null)
@@ -264,6 +273,20 @@ public class MainCameraButton : MonoBehaviour
         if (animationImage == null)
         {
             animationImage = FindAnimationImage();
+        }
+
+        if (animationTarget != null && animationImage == null)
+        {
+            if (animationTarget.GetComponent<Image>() == null)
+            {
+                Image createdImage = animationTarget.AddComponent<Image>();
+                animationImage = createdImage;
+                Debug.LogWarning($"Added Image component to {animationTarget.name} so the sprite animation can be displayed.");
+            }
+            else
+            {
+                animationImage = animationTarget.GetComponent<Image>();
+            }
         }
     }
 
@@ -306,38 +329,144 @@ public class MainCameraButton : MonoBehaviour
     {
         if (string.IsNullOrEmpty(animationTargetName))
         {
-            return false;
+            animationTargetName = "PullDownAnimation";
         }
 
-        foreach (Animator candidateAnimator in Resources.FindObjectsOfTypeAll<Animator>())
+        Animator preferredAnimator = null;
+        Animation preferredLegacyAnimation = null;
+
+        foreach (Animator candidateAnimator in FindObjectsOfType<Animator>())
         {
-            if (candidateAnimator != null && candidateAnimator.gameObject != null)
+            if (candidateAnimator == null || candidateAnimator.gameObject == null)
             {
-                string candidateName = candidateAnimator.gameObject.name;
-                if (candidateName == animationTargetName || candidateName.Contains(animationTargetName))
-                {
-                    animator = candidateAnimator;
-                    animationTarget = candidateAnimator.gameObject;
-                    return true;
-                }
+                continue;
+            }
+
+            string candidateName = candidateAnimator.gameObject.name;
+            bool nameMatches = candidateName == animationTargetName || candidateName.Contains(animationTargetName) || candidateName.Contains("Cam") || candidateName.Contains("camera") || candidateName.Contains("Pull");
+            bool hasMatchingTrigger = HasAnimatorTrigger(candidateAnimator, openTrigger) || HasAnimatorTrigger(candidateAnimator, closeTrigger);
+
+            if (nameMatches || hasMatchingTrigger)
+            {
+                preferredAnimator = candidateAnimator;
+                break;
             }
         }
 
-        foreach (Animation candidateAnimation in Resources.FindObjectsOfTypeAll<Animation>())
+        if (preferredAnimator != null)
         {
-            if (candidateAnimation != null && candidateAnimation.gameObject != null)
+            animator = preferredAnimator;
+            animationTarget = preferredAnimator.gameObject;
+            return true;
+        }
+
+        foreach (Animation candidateAnimation in FindObjectsOfType<Animation>())
+        {
+            if (candidateAnimation == null || candidateAnimation.gameObject == null)
             {
-                string candidateName = candidateAnimation.gameObject.name;
-                if (candidateName == animationTargetName || candidateName.Contains(animationTargetName))
-                {
-                    legacyAnimation = candidateAnimation;
-                    animationTarget = candidateAnimation.gameObject;
-                    return true;
-                }
+                continue;
+            }
+
+            string candidateName = candidateAnimation.gameObject.name;
+            bool nameMatches = candidateName == animationTargetName || candidateName.Contains(animationTargetName) || candidateName.Contains("Cam") || candidateName.Contains("camera") || candidateName.Contains("Pull");
+            bool hasMatchingClip = candidateAnimation[openAnimationClipName] != null || candidateAnimation[closeAnimationClipName] != null;
+            bool hasDisplayComponent = HasVisibleImage(candidateAnimation.gameObject);
+
+            if ((nameMatches || hasMatchingClip) && hasDisplayComponent)
+            {
+                preferredLegacyAnimation = candidateAnimation;
+                break;
+            }
+        }
+
+        if (preferredLegacyAnimation != null)
+        {
+            legacyAnimation = preferredLegacyAnimation;
+            animationTarget = preferredLegacyAnimation.gameObject;
+            return true;
+        }
+
+        if (animationTarget != null)
+        {
+            Animator targetAnimator = animationTarget.GetComponent<Animator>();
+            if (targetAnimator != null)
+            {
+                animator = targetAnimator;
+                return true;
+            }
+
+            Animation targetAnimation = animationTarget.GetComponent<Animation>();
+            if (targetAnimation != null)
+            {
+                legacyAnimation = targetAnimation;
+                return true;
             }
         }
 
         return false;
+    }
+
+    private bool TryFindLegacyAnimationByClipNames()
+    {
+        foreach (Animation candidateAnimation in FindObjectsOfType<Animation>())
+        {
+            if (candidateAnimation == null || candidateAnimation.gameObject == null)
+            {
+                continue;
+            }
+
+            if ((candidateAnimation[openAnimationClipName] != null || candidateAnimation[closeAnimationClipName] != null) && HasVisibleImage(candidateAnimation.gameObject))
+            {
+                legacyAnimation = candidateAnimation;
+                animationTarget = candidateAnimation.gameObject;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool HasAnimatorTrigger(Animator targetAnimator, string triggerName)
+    {
+        if (targetAnimator == null || string.IsNullOrEmpty(triggerName))
+        {
+            return false;
+        }
+
+        foreach (AnimatorControllerParameter parameter in targetAnimator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == triggerName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool HasVisibleImage(GameObject targetObject)
+    {
+        if (targetObject == null)
+        {
+            return false;
+        }
+
+        return targetObject.GetComponent<Image>() != null;
+    }
+
+    private bool HasLegacyClip(string clipName)
+    {
+        if (string.IsNullOrEmpty(clipName) || legacyAnimation == null)
+        {
+            return false;
+        }
+
+        return legacyAnimation[clipName] != null || legacyAnimation.GetClip(clipName) != null;
+    }
+
+    private bool ShouldUseAnimator(string triggerName)
+    {
+        return animator != null && HasTriggerParameter(triggerName);
     }
 
     private Image FindAnimationImage()
@@ -345,12 +474,6 @@ public class MainCameraButton : MonoBehaviour
         if (animationTarget != null)
         {
             Image foundImage = animationTarget.GetComponent<Image>();
-            if (foundImage != null)
-            {
-                return foundImage;
-            }
-
-            foundImage = animationTarget.GetComponentInChildren<Image>();
             if (foundImage != null)
             {
                 return foundImage;
@@ -426,28 +549,21 @@ public class MainCameraButton : MonoBehaviour
         if (animator == null)
         {
             Debug.LogWarning("No Animator component found for camera animation.");
+            isAnimating = false;
             yield break;
         }
 
         if (!HasTriggerParameter(triggerName))
         {
             Debug.LogWarning($"Animator trigger '{triggerName}' was not found on {animator.gameObject.name}.");
+            isAnimating = false;
             yield break;
         }
 
         isAnimating = true;
         animator.SetTrigger(triggerName);
 
-        yield return null;
-
-        float duration = 0.2f;
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.length > 0f)
-        {
-            duration = stateInfo.length;
-        }
-
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(0.2f);
         isAnimating = false;
     }
 
@@ -455,6 +571,7 @@ public class MainCameraButton : MonoBehaviour
     {
         if (legacyAnimation == null)
         {
+            isAnimating = false;
             yield break;
         }
 
@@ -462,14 +579,43 @@ public class MainCameraButton : MonoBehaviour
 
         if (legacyAnimation[clipName] != null)
         {
+            if (!HasVisibleImage(legacyAnimation.gameObject))
+            {
+                Debug.LogWarning($"Legacy animation clip '{clipName}' was found on {legacyAnimation.gameObject.name}, but that object has no Image component, so the sprite animation will not be visible.");
+            }
+            else
+            {
+                Debug.Log($"Playing legacy clip '{clipName}' on {legacyAnimation.gameObject.name}");
+            }
+
             legacyAnimation.Stop();
             legacyAnimation.Play(clipName);
-            yield return new WaitForSeconds(legacyAnimation[clipName].length);
+            yield return new WaitForSeconds(0.2f);
         }
         else
         {
-            Debug.LogWarning($"Legacy animation clip '{clipName}' was not found.");
-            yield return null;
+            AnimationClip clip = legacyAnimation.GetClip(clipName);
+            if (clip != null)
+            {
+                if (!HasVisibleImage(legacyAnimation.gameObject))
+                {
+                    Debug.LogWarning($"Legacy animation clip '{clipName}' was found on {legacyAnimation.gameObject.name}, but that object has no Image component, so the sprite animation will not be visible.");
+                }
+                else
+                {
+                    Debug.Log($"Playing legacy clip '{clipName}' on {legacyAnimation.gameObject.name}");
+                }
+
+                legacyAnimation.Stop();
+                legacyAnimation.Play(clipName);
+                yield return new WaitForSeconds(0.2f);
+            }
+            else
+            {
+                Debug.LogWarning($"Legacy animation clip '{clipName}' was not found.");
+                isAnimating = false;
+                yield break;
+            }
         }
 
         isAnimating = false;
@@ -479,82 +625,37 @@ public class MainCameraButton : MonoBehaviour
     {
         Debug.Log("ForceCloseCameras called!");
         
-        if (isAnimating)
-        {
-            Debug.Log("Cannot force close - already animating");
-            return;
-        }
-        
-        Debug.Log("Setting isCameraOpen to false");
+        isAnimating = false;
         isCameraOpen = false;
         
-        // Hide camera buttons
+        // Hide camera buttons immediately
         foreach (GameObject button in cameraButtons)
         {
             if (button != null)
             {
                 button.SetActive(false);
-                Debug.Log("Camera button hidden");
             }
         }
         
-        // Play close animation
-        SetAnimationImageRaycasts(false);
-        
-        if (animator != null)
-        {
-            Debug.Log("Force closing: Animator found, triggering close animation");
-            StartCoroutine(PlayAnimationOnce(closeTrigger));
-        }
-        else if (legacyAnimation != null)
-        {
-            Debug.Log("Force closing: Legacy Animation found, playing close clip");
-            StartCoroutine(PlayLegacyAnimationOnce(closeAnimationClipName));
-        }
-        else
-        {
-            Debug.LogWarning("No animator or legacy animation found!");
-        }
-        
-        // Force switch back to main camera immediately
+        // Force switch back to main camera immediately - no animation delay
         if (mainCamera != null)
         {
-            Vector3 oldPos = mainCamera.transform.position;
-            Quaternion oldRot = mainCamera.transform.rotation;
-            
-            Debug.Log($"BEFORE: Main camera at {oldPos}, rotation {oldRot.eulerAngles}");
-            Debug.Log($"AFTER: Setting to position {originalCameraPosition}, rotation {originalCameraRotation.eulerAngles}");
-            
             mainCamera.transform.position = originalCameraPosition;
             mainCamera.transform.rotation = originalCameraRotation;
             
-            Vector3 newPos = mainCamera.transform.position;
-            Quaternion newRot = mainCamera.transform.rotation;
-            
-            Debug.Log($"VERIFIED: Main camera now at {newPos}, rotation {newRot.eulerAngles}");
-            
             // Disable all other cameras to ensure main camera is the only one rendering
             Camera[] allCameras = FindObjectsOfType<Camera>();
-            Debug.Log($"Total cameras in scene: {allCameras.Length}");
             foreach (Camera cam in allCameras)
             {
                 if (cam != mainCamera)
                 {
                     cam.enabled = false;
-                    Debug.Log($"Disabled camera: {cam.name}");
                 }
                 else
                 {
                     cam.enabled = true;
-                    Debug.Log($"Enabled main camera: {cam.name}");
                 }
             }
-            
-            Debug.Log("Camera position/rotation reset - should be back in office view!");
-        }
-        else
-        {
-            Debug.LogError("Main camera is null! Cannot switch back to office view.");
         }
     }
 }

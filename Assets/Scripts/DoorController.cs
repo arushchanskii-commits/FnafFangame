@@ -16,6 +16,9 @@ public class DoorController : MonoBehaviour
     public Light targetLight;
     public float lightIntensity = 2f;
     
+    [Header("Door Room Integration")]
+    public DoorRoom linkedDoorRoom;
+    
     [Header("Audio")]
     public AudioClip openSound;
     public AudioClip closeSound;
@@ -84,7 +87,11 @@ public class DoorController : MonoBehaviour
                     targetLight.intensity = originalLightIntensity;
                 }
                 
-                // Register door as closed (power consuming)
+                if (linkedDoorRoom != null)
+                {
+                    linkedDoorRoom.CloseDoor();
+                }
+                
                 if (!isPowerRegistered && PowerManager.Instance.CanUseDevice())
                 {
                     isPowerRegistered = true;
@@ -105,7 +112,11 @@ public class DoorController : MonoBehaviour
                     targetLight.intensity = lightIntensity;
                 }
                 
-                // Unregister door from power consumption
+                if (linkedDoorRoom != null)
+                {
+                    linkedDoorRoom.OpenDoor();
+                }
+                
                 if (isPowerRegistered)
                 {
                     isPowerRegistered = false;
@@ -134,6 +145,11 @@ public class DoorController : MonoBehaviour
                 {
                     isPowerRegistered = false;
                     PowerManager.Instance.UnregisterDevice(PowerManager.DeviceType.Door);
+                }
+                
+                if (linkedDoorRoom != null)
+                {
+                    linkedDoorRoom.OpenDoor();
                 }
             }
         }

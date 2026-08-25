@@ -16,10 +16,16 @@ public class PowerCharger : MonoBehaviour
     [Header("Audio")]
     public AudioClip chargingSound;
     public float soundVolume = 0.5f;
+    public bool loopChargingSound = true;
+    [Tooltip("Seconds before the sound can replay after each play")]
+    public float soundCooldown = 0.5f;
     
     [Header("Visual Feedback")]
     public GameObject chargingIndicator;
     public Light chargingLight;
+    
+    [Header("Camera Reference")]
+    public MainCameraButton cameraButton;
     
     private AudioSource audioSource;
     private Camera mainCam;
@@ -30,6 +36,8 @@ public class PowerCharger : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private bool powerOutageOccurred = false;
+    private float soundCooldownTimer = 0f;
+    private bool soundIsPlaying = false;
 
     private void Start()
     {
@@ -37,6 +45,18 @@ public class PowerCharger : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.volume = soundVolume;
+        audioSource.Stop();
+        soundCooldownTimer = 0f;
+        soundIsPlaying = false;
+
+        if (chargingSound != null)
+        {
+            audioSource.clip = chargingSound;
         }
         
         mainCam = mainCamera;
@@ -60,11 +80,20 @@ public class PowerCharger : MonoBehaviour
 
     private void Update()
     {
+        // Check if cameras are open - disable generator
+        if (cameraButton != null && cameraButton.isCameraOpen)
+        {
+            if (isCharging)
+            {
+                StopCharging();
+            }
+            return;
+        }
+        
         // Check if power outage has occurred - disable generator after power outage
         if (PowerManager.Instance != null && !PowerManager.Instance.CanUseDevice() && !powerOutageOccurred)
         {
             powerOutageOccurred = true;
-            Debug.Log("Power outage occurred! Generator is now disabled.");
         }
         
         // Don't allow charging after power outage
@@ -99,13 +128,8 @@ public class PowerCharger : MonoBehaviour
     private void StartCharging()
     {
         isCharging = true;
-        
-        Debug.Log("Charging started!");
-        
-        if (chargingSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(chargingSound, soundVolume);
-        }
+        soundCooldownTimer = 0f;
+        soundIsPlaying = false;
         
         if (chargingIndicator != null)
         {
@@ -116,6 +140,26 @@ public class PowerCharger : MonoBehaviour
         {
             chargingLight.enabled = true;
         }
+
+        if (audioSource != null && chargingSound != null)
+        {
+            audioSource.clip = chargingSound;
+            audioSource.loop = false;
+            audioSource.volume = soundVolume;
+            PlayChargingSound();
+        }
+    }
+
+    private void PlayChargingSound()
+    {
+        if (audioSource == null || chargingSound == null)
+        {
+            return;
+        }
+
+        audioSource.PlayOneShot(chargingSound, soundVolume);
+        soundIsPlaying = true;
+        soundCooldownTimer = Mathf.Max(soundCooldown, 0.01f);
     }
 
     private void UpdateCharging()
@@ -134,8 +178,19 @@ public class PowerCharger : MonoBehaviour
             
             PowerManager.Instance.currentPower = newPower;
             PowerManager.Instance.UpdatePowerUIPublic();
-            
-            Debug.Log($"Power restored: {PowerManager.Instance.currentPower:F1}%");
+        }
+
+        if (audioSource != null && chargingSound != null && isCharging)
+        {
+            if (soundCooldownTimer > 0f)
+            {
+                soundCooldownTimer -= Time.deltaTime;
+            }
+
+            if (soundCooldownTimer <= 0f)
+            {
+                PlayChargingSound();
+            }
         }
         
         // Keep camera zoomed in while held
@@ -152,8 +207,6 @@ public class PowerCharger : MonoBehaviour
     {
         isCharging = false;
         
-        Debug.Log("Charging stopped!");
-        
         if (chargingIndicator != null)
         {
             chargingIndicator.SetActive(false);
@@ -162,6 +215,13 @@ public class PowerCharger : MonoBehaviour
         if (chargingLight != null)
         {
             chargingLight.enabled = false;
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            soundIsPlaying = false;
+            soundCooldownTimer = 0f;
         }
         
         // Immediately return camera to original position

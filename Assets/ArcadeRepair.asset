@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ArcadeRepair
   m_EditorClassIdentifier: 
   roomName: Arcade Repair
+  cameraIndex: 3

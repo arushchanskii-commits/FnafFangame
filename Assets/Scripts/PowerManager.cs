@@ -16,7 +16,12 @@ public class PowerManager : MonoBehaviour
     
     [Header("UI")]
     public Text powerText;
-    public Slider powerSlider;
+    
+    [Header("Power Bars")]
+    public Image[] powerBars;
+    
+    [Header("Generator Reference")]
+    public PowerCharger powerCharger;
     
     [Header("Power Outage")]
     public GameObject powerOutageScreen;
@@ -25,9 +30,9 @@ public class PowerManager : MonoBehaviour
     [Header("Lights to Disable on Power Outage")]
     public List<PowerLight> powerLights = new List<PowerLight>();
     
-    private int activeDevices = 0;
     private int activeDoors = 0;
     private int activeLights = 0;
+    private bool isCameraActive = false;
     private float currentDrainRate;
     private float drainTimer = 0f;
     private float drainInterval = 1f;
@@ -68,7 +73,22 @@ public class PowerManager : MonoBehaviour
 
     private void CalculateDrainRate()
     {
-        currentDrainRate = baseDrainRate + (activeDoors * doorDrainRate) + (activeLights * lightDrainRate);
+        currentDrainRate = baseDrainRate;
+        
+        if (activeDoors > 0)
+        {
+            currentDrainRate += activeDoors * doorDrainRate;
+        }
+        
+        if (activeLights > 0)
+        {
+            currentDrainRate += activeLights * lightDrainRate;
+        }
+        
+        if (isCameraActive)
+        {
+            currentDrainRate += cameraDrainRate;
+        }
     }
 
     private void DrainPower()
@@ -86,13 +106,53 @@ public class PowerManager : MonoBehaviour
     {
         if (powerText != null)
         {
-            powerText.text = $"Power: {currentPower:F0}%";
+            float percentage = (currentPower / maxPower) * 100f;
+            powerText.text = $"Power: {percentage:F0}%";
         }
         
-        if (powerSlider != null)
+        UpdatePowerBars();
+    }
+    
+    private void UpdatePowerBars()
+    {
+        if (powerBars == null || powerBars.Length == 0) return;
+        
+        int activeBars = CalculateActiveBars();
+        
+        for (int i = 0; i < powerBars.Length; i++)
         {
-            powerSlider.value = currentPower / maxPower;
+            if (powerBars[i] != null)
+            {
+                powerBars[i].enabled = (i < activeBars);
+            }
         }
+    }
+    
+    private int CalculateActiveBars()
+    {
+        int bars = 1;
+        
+        if (activeDoors > 0)
+        {
+            bars += Mathf.Min(activeDoors, 2);
+        }
+        
+        if (activeLights > 0)
+        {
+            bars += 1;
+        }
+        
+        if (isCameraActive)
+        {
+            bars += 1;
+        }
+        
+        if (powerCharger != null && powerCharger.isCharging)
+        {
+            bars -= 1;
+        }
+        
+        return Mathf.Max(0, Mathf.Min(bars, powerBars.Length));
     }
 
     public void UpdatePowerUIPublic()
@@ -140,7 +200,12 @@ public class PowerManager : MonoBehaviour
             case DeviceType.Light:
                 activeLights++;
                 break;
+            case DeviceType.Camera:
+                isCameraActive = true;
+                break;
         }
+        
+        UpdatePowerBars();
     }
 
     public void UnregisterDevice(DeviceType deviceType)
@@ -155,7 +220,12 @@ public class PowerManager : MonoBehaviour
             case DeviceType.Light:
                 activeLights = Mathf.Max(0, activeLights - 1);
                 break;
+            case DeviceType.Camera:
+                isCameraActive = false;
+                break;
         }
+        
+        UpdatePowerBars();
     }
 
     public bool CanUseDevice()

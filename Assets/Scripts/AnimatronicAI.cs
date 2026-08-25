@@ -13,8 +13,19 @@ public class AnimatronicAI : MonoBehaviour
     public List<Room> roomPath = new();
 
     [Header("Timer")]
+    [Tooltip("Seconds before the animatronic can start moving (initial delay).")]
+    public float initialDelay = 0f;
+    
     [Tooltip("Seconds between each movement attempt.")]
     public float tickInterval = 1f;
+    
+    [Header("Backward Movement")]
+    [Tooltip("Chance (0-100) to move backward on failed movement attempt. Only works for Bonnie and Chica.")]
+    [Range(0, 100)]
+    public int backwardMoveChance = 30;
+    
+    [Tooltip("Minimum path index to move back to (0 = start)")]
+    public int minBackwardIndex = 0;
 
     [Header("Room Visuals")]
     [Tooltip("One entry per room (same order as Room Path). Assign either a SpriteRenderer OR a GameObject – whichever is set will be shown/hidden. If both are set, both are toggled.")]
@@ -130,13 +141,62 @@ public class AnimatronicAI : MonoBehaviour
 
         if (roll <= aiScore)
         {
+            Room nextRoom = roomPath[_pathIndex + 1];
+
+            if (CurrentRoom is DoorRoom currentDoorRoom)
+            {
+                if (!currentDoorRoom.TryEnter(this))
+                {
+                    Debug.Log($"[{animatronicName}] blocked by door! Staying in {CurrentRoom.roomName}");
+                    return;
+                }
+            }
+
             _pathIndex++;
-            CurrentRoom = roomPath[_pathIndex];
+            CurrentRoom = nextRoom;
             UpdateVisuals();
             Debug.Log($"[{animatronicName}] moved to: {CurrentRoom.roomName}");
+            
+            if (CurrentRoom is Room nextRoomData && nextRoomData.cameraIndex >= 0)
+            {
+                if (CameraSystem.Instance != null)
+                {
+                    CameraSystem.Instance.TriggerGlitchEffect(nextRoomData.cameraIndex);
+                }
+            }
 
             if (_pathIndex >= roomPath.Count - 1)
                 TriggerJumpscare();
+        }
+        else
+        {
+            int backwardRoll = Random.Range(1, 101);
+            Debug.Log($"[{animatronicName}] Failed move - Backward roll: {backwardRoll} (needs <= {backwardMoveChance})");
+            
+            if (backwardRoll <= backwardMoveChance && _pathIndex > minBackwardIndex)
+            {
+                int maxBackIndex = _pathIndex - 1;
+                if (maxBackIndex >= minBackwardIndex)
+                {
+                    int newIndexPath = Random.Range(minBackwardIndex, maxBackIndex + 1);
+                    
+                    if (newIndexPath != _pathIndex)
+                    {
+                        _pathIndex = newIndexPath;
+                        CurrentRoom = roomPath[_pathIndex];
+                        UpdateVisuals();
+                        Debug.Log($"[{animatronicName}] moved BACK to: {CurrentRoom.roomName} (index {_pathIndex})");
+                        
+                        if (CurrentRoom is Room backwardRoomData && backwardRoomData.cameraIndex >= 0)
+                        {
+                            if (CameraSystem.Instance != null)
+                            {
+                                CameraSystem.Instance.TriggerGlitchEffect(backwardRoomData.cameraIndex);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
