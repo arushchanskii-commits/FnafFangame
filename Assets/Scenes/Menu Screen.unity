@@ -990,12 +990,15 @@ MonoBehaviour:
   - sceneName: Night One
     stayLoaded: 0
     timeLimitSeconds: 3.402823e+38
-  - sceneName: tutorialcardadded
-    stayLoaded: 1
-    timeLimitSeconds: 1e+16
   - sceneName: HotwireCorrectPlacement
     stayLoaded: 0
     timeLimitSeconds: 3.402823e+38
+  - sceneName: Night TWo
+    stayLoaded: 0
+    timeLimitSeconds: 3.402823e+38
+  - sceneName: tutorialcardadded
+    stayLoaded: 1
+    timeLimitSeconds: 1e+16
   - sceneName: hotwire
     stayLoaded: 0
     timeLimitSeconds: 3.402823e+38

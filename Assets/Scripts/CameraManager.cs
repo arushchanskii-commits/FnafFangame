@@ -25,6 +25,9 @@ public class CameraManager : MonoBehaviour
 
     private Camera activeCamera;
 
+    /// <summary>True while a swappable camera feed is active.</summary>
+    public bool IsWatchingCameras => activeCamera != null && activeCamera != mainCamera && activeCamera.enabled;
+
     public static CameraManager Instance { get; private set; }
 
     private void Awake()

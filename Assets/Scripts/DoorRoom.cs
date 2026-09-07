@@ -22,13 +22,20 @@ public class DoorRoom : Room
     /// <summary>
     /// Called when animatronic tries to enter this door room.
     /// Returns true if animatronic can pass, false if blocked.
+    /// Freddy will be blocked but given a chance to try alternate door paths.
     /// </summary>
     public bool TryEnter(AnimatronicAI animatronic)
     {
         if (isDoorClosed)
         {
-            Debug.Log($"[{animatronic.animatronicName}] blocked by {doorSide} door! Resetting to start.");
-            animatronic.ResetToRoom(resetPathIndex);
+            Debug.Log($"[{animatronic.animatronicName}] blocked by {doorSide} door!");
+
+            if (!animatronic.animatronicName.ToLowerInvariant().Contains("freddy"))
+            {
+                Debug.Log($"[{animatronic.animatronicName}] Resetting to start.");
+                animatronic.ResetToRoom(resetPathIndex);
+            }
+
             return false;
         }
         

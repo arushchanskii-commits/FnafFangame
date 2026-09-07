@@ -13,6 +13,19 @@ public class GameClock : MonoBehaviour
     
     [Header("Time Display")]
     public bool showSeconds = false;
+
+    [Header("Night End")]
+    [SerializeField] private ScreenFade screenFade;
+    [SerializeField] private Text nightEndText;
+    [SerializeField] private Font nightEndFont;
+    [SerializeField] private int nightEndFontSize = 100;
+    [SerializeField] private AudioSource fadeAudioSource;
+    [SerializeField] private AudioClip fadeSoundEffect;
+    [Range(0f, 1f)]
+    [SerializeField] private float fadeSoundVolume = 1f;
+    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float sceneChangeDelay = 3f;
+    [SerializeField] private float blinkInterval = 0.5f;
     
     private float timeElapsed = 0f;
     private int currentHour = 12;
@@ -21,6 +34,7 @@ public class GameClock : MonoBehaviour
     private bool nightStarted = false;
     private bool nightEnded = false;
     private bool isTextVisible = true;
+    private Coroutine nightEndCoroutine;
     
     // Time calculation: 12am to 6am = 6 hours = 360 minutes
     // Night duration = 360 seconds (6 minutes)
@@ -107,8 +121,8 @@ public class GameClock : MonoBehaviour
         
         currentHour = gameHour;
         
-        // Check if 6am reached (end of night)
-        if (gameHour == 6 && currentMinute == 0 && isAM)
+        // End the night from the timer threshold so frame timing cannot skip 6:00 AM.
+        if (timeElapsed >= nightDuration)
         {
             OnNightEnd();
         }
@@ -142,8 +156,78 @@ public class GameClock : MonoBehaviour
         isAM = true;
         UpdateClockDisplay();
         Debug.Log("6am reached! Night ended.");
-        
-        // You can add 6am music/jumpscare logic here
+
+        if (nightEndCoroutine != null)
+        {
+            StopCoroutine(nightEndCoroutine);
+        }
+
+        nightEndCoroutine = StartCoroutine(ShowNightEndAndAdvance());
+    }
+
+    private System.Collections.IEnumerator ShowNightEndAndAdvance()
+    {
+        if (fadeAudioSource != null && fadeSoundEffect != null)
+        {
+            fadeAudioSource.PlayOneShot(fadeSoundEffect, fadeSoundVolume);
+        }
+
+        if (screenFade != null)
+        {
+            screenFade.FadeToBlack(fadeDuration);
+            yield return new WaitForSeconds(Mathf.Max(0f, fadeDuration));
+        }
+
+        if (nightEndText != null)
+        {
+            if (nightEndFont != null)
+            {
+                nightEndText.font = nightEndFont;
+            }
+
+            if (nightEndFontSize > 0)
+            {
+                nightEndText.fontSize = nightEndFontSize;
+            }
+
+            nightEndText.text = "6 AM";
+            Color textColor = nightEndText.color;
+            textColor.a = 0f;
+            nightEndText.color = textColor;
+            nightEndText.enabled = true;
+
+            float fadeElapsed = 0f;
+            while (fadeElapsed < fadeDuration)
+            {
+                fadeElapsed += Time.deltaTime;
+                textColor.a = Mathf.Clamp01(fadeElapsed / fadeDuration);
+                nightEndText.color = textColor;
+                yield return null;
+            }
+
+            float blinkElapsed = 0f;
+            while (blinkElapsed < sceneChangeDelay)
+            {
+                nightEndText.enabled = !nightEndText.enabled;
+                float interval = Mathf.Max(0.05f, blinkInterval);
+                yield return new WaitForSeconds(interval);
+                blinkElapsed += interval;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(Mathf.Max(0f, sceneChangeDelay));
+        }
+
+        MiniGameSwapper swapper = FindObjectOfType<MiniGameSwapper>();
+        if (swapper != null)
+        {
+            swapper.OnMiniGameComplete();
+        }
+        else
+        {
+            Debug.LogError("GameClock: 6 AM transition finished, but no MiniGameSwapper was found.");
+        }
     }
     
     public float GetTimeProgress()

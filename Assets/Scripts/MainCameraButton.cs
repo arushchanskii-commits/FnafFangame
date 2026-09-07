@@ -46,6 +46,8 @@ public class MainCameraButton : MonoBehaviour
     public bool isAnimating = false;
     private float lastToggleTime = 0f;
     private float toggleCooldown = 0.3f;
+    private FNAFCameraMove mainCameraMove;
+    private bool mainCameraMoveWasEnabled;
 
     private void Start()
     {
@@ -151,6 +153,7 @@ public class MainCameraButton : MonoBehaviour
                 Camera targetCamera = cameraViews[currentCameraIndex];
                 if (targetCamera != null && mainCamera != null)
                 {
+                    DisableMainCameraMovement();
                     mainCamera.transform.position = targetCamera.transform.position;
                     mainCamera.transform.rotation = targetCamera.transform.rotation;
                     Debug.Log($"Switched to camera view {currentCameraIndex + 1}");
@@ -224,6 +227,8 @@ public class MainCameraButton : MonoBehaviour
             if (mainCamera != null)
             {
                 mainCamera.transform.position = originalCameraPosition;
+                mainCamera.transform.rotation = originalCameraRotation;
+                RestoreMainCameraMovement();
                 Debug.Log("Camera position reset");
             }
 
@@ -508,20 +513,56 @@ public class MainCameraButton : MonoBehaviour
 
     private void SwitchToDefaultCamera()
     {
-        if (swappableCameras == null || swappableCameras.Length == 0)
+        if (mainCamera == null)
         {
             return;
         }
 
-        int targetIndex = Mathf.Clamp(defaultCameraIndex, 0, swappableCameras.Length - 1);
-        Camera targetCamera = swappableCameras[targetIndex];
-
-        if (targetCamera != null && mainCamera != null)
+        if (cameraViews != null)
         {
-            mainCamera.transform.position = targetCamera.transform.position;
-            mainCamera.transform.rotation = targetCamera.transform.rotation;
-            Debug.Log($"Switched back to swappable camera {targetIndex + 1}");
+            foreach (Camera cameraView in cameraViews)
+            {
+                if (cameraView != null && cameraView != mainCamera)
+                    cameraView.enabled = false;
+            }
         }
+
+        if (swappableCameras != null)
+        {
+            foreach (Camera swappableCamera in swappableCameras)
+            {
+                if (swappableCamera != null && swappableCamera != mainCamera)
+                    swappableCamera.enabled = false;
+            }
+        }
+
+        mainCamera.transform.position = originalCameraPosition;
+        mainCamera.transform.rotation = originalCameraRotation;
+        mainCamera.enabled = true;
+
+        if (CameraManager.Instance != null)
+            CameraManager.Instance.SwitchToMainCamera();
+
+        Debug.Log("Switched back to MainCam");
+    }
+
+    private void DisableMainCameraMovement()
+    {
+        if (mainCamera == null)
+            return;
+
+        mainCameraMove = mainCamera.GetComponent<FNAFCameraMove>();
+        if (mainCameraMove != null)
+        {
+            mainCameraMoveWasEnabled = mainCameraMove.enabled;
+            mainCameraMove.enabled = false;
+        }
+    }
+
+    private void RestoreMainCameraMovement()
+    {
+        if (mainCameraMove != null)
+            mainCameraMove.enabled = mainCameraMoveWasEnabled;
     }
 
     private bool HasTriggerParameter(string triggerName)
@@ -642,6 +683,7 @@ public class MainCameraButton : MonoBehaviour
         {
             mainCamera.transform.position = originalCameraPosition;
             mainCamera.transform.rotation = originalCameraRotation;
+            RestoreMainCameraMovement();
             
             // Disable all other cameras to ensure main camera is the only one rendering
             Camera[] allCameras = FindObjectsOfType<Camera>();

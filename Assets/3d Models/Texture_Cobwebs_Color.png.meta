@@ -1,0 +1,1830 @@
+fileFormatVersion: 2
+guid: 9d573b7839f6d9c43be02eb65c113d23
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2416648047446977827
+    second: Texture_Cobwebs_Color_0
+  - first:
+      213: 5278985560503519014
+    second: Texture_Cobwebs_Color_1
+  - first:
+      213: 3486162721362968497
+    second: Texture_Cobwebs_Color_2
+  - first:
+      213: -8741010830066113821
+    second: Texture_Cobwebs_Color_3
+  - first:
+      213: -8933317783481662932
+    second: Texture_Cobwebs_Color_4
+  - first:
+      213: 4112476341901370080
+    second: Texture_Cobwebs_Color_5
+  - first:
+      213: -4660557256246594717
+    second: Texture_Cobwebs_Color_6
+  - first:
+      213: 5780648086487420287
+    second: Texture_Cobwebs_Color_7
+  - first:
+      213: -8008868157161752686
+    second: Texture_Cobwebs_Color_8
+  - first:
+      213: 5523712292983591987
+    second: Texture_Cobwebs_Color_9
+  - first:
+      213: -6721087582027440202
+    second: Texture_Cobwebs_Color_10
+  - first:
+      213: -4092119326319731013
+    second: Texture_Cobwebs_Color_11
+  - first:
+      213: 8928445815498866390
+    second: Texture_Cobwebs_Color_12
+  - first:
+      213: 2164006144060777517
+    second: Texture_Cobwebs_Color_13
+  - first:
+      213: 6952170043475056477
+    second: Texture_Cobwebs_Color_14
+  - first:
+      213: -920077418634921783
+    second: Texture_Cobwebs_Color_15
+  - first:
+      213: 6894169994234901
+    second: Texture_Cobwebs_Color_16
+  - first:
+      213: -2600263467215092865
+    second: Texture_Cobwebs_Color_17
+  - first:
+      213: 8855104846777450378
+    second: Texture_Cobwebs_Color_18
+  - first:
+      213: -4809722626830060425
+    second: Texture_Cobwebs_Color_19
+  - first:
+      213: 7774927778025329997
+    second: Texture_Cobwebs_Color_20
+  - first:
+      213: -8261003468749616372
+    second: Texture_Cobwebs_Color_21
+  - first:
+      213: 965003148154075266
+    second: Texture_Cobwebs_Color_22
+  - first:
+      213: 4170926199416454274
+    second: Texture_Cobwebs_Color_23
+  - first:
+      213: 2226944520601350746
+    second: Texture_Cobwebs_Color_24
+  - first:
+      213: -9212889230565714349
+    second: Texture_Cobwebs_Color_25
+  - first:
+      213: 6523456753586778200
+    second: Texture_Cobwebs_Color_26
+  - first:
+      213: -5534722480345466107
+    second: Texture_Cobwebs_Color_27
+  - first:
+      213: 8485425063075186539
+    second: Texture_Cobwebs_Color_28
+  - first:
+      213: 3713320566410701146
+    second: Texture_Cobwebs_Color_29
+  - first:
+      213: -8491162138552400833
+    second: Texture_Cobwebs_Color_30
+  - first:
+      213: 7966535000717023103
+    second: Texture_Cobwebs_Color_31
+  - first:
+      213: -7456046291606045817
+    second: Texture_Cobwebs_Color_32
+  - first:
+      213: -1401154745397952397
+    second: Texture_Cobwebs_Color_33
+  - first:
+      213: 2262391286091512966
+    second: Texture_Cobwebs_Color_34
+  - first:
+      213: 696864592307083426
+    second: Texture_Cobwebs_Color_35
+  - first:
+      213: 7091919012810657094
+    second: Texture_Cobwebs_Color_36
+  - first:
+      213: -3654581132669880546
+    second: Texture_Cobwebs_Color_37
+  - first:
+      213: 6403096556205521004
+    second: Texture_Cobwebs_Color_38
+  - first:
+      213: 5072941136513936895
+    second: Texture_Cobwebs_Color_39
+  - first:
+      213: -1111083689993236961
+    second: Texture_Cobwebs_Color_40
+  - first:
+      213: -101921455226901348
+    second: Texture_Cobwebs_Color_41
+  - first:
+      213: -1795042293957601780
+    second: Texture_Cobwebs_Color_42
+  - first:
+      213: 6671530771613624536
+    second: Texture_Cobwebs_Color_43
+  - first:
+      213: -3613022798663217893
+    second: Texture_Cobwebs_Color_44
+  - first:
+      213: 3974598170225001637
+    second: Texture_Cobwebs_Color_45
+  - first:
+      213: -5472516594684187928
+    second: Texture_Cobwebs_Color_46
+  - first:
+      213: -5767101516257847591
+    second: Texture_Cobwebs_Color_47
+  - first:
+      213: 741886860362935781
+    second: Texture_Cobwebs_Color_48
+  - first:
+      213: -7101562623979649389
+    second: Texture_Cobwebs_Color_49
+  - first:
+      213: 4218130123851325109
+    second: Texture_Cobwebs_Color_50
+  - first:
+      213: 297539702445826821
+    second: Texture_Cobwebs_Color_51
+  - first:
+      213: -4587265776661767112
+    second: Texture_Cobwebs_Color_52
+  - first:
+      213: -3026070661679426517
+    second: Texture_Cobwebs_Color_53
+  - first:
+      213: -874872326018375913
+    second: Texture_Cobwebs_Color_54
+  - first:
+      213: -5790340572430421612
+    second: Texture_Cobwebs_Color_55
+  - first:
+      213: -1590350570209536149
+    second: Texture_Cobwebs_Color_56
+  - first:
+      213: 4251310948823080528
+    second: Texture_Cobwebs_Color_57
+  - first:
+      213: -3566764961692193617
+    second: Texture_Cobwebs_Color_58
+  - first:
+      213: 2884043392422299964
+    second: Texture_Cobwebs_Color_59
+  - first:
+      213: -2047336067626245926
+    second: Texture_Cobwebs_Color_60
+  - first:
+      213: -1016987144243775444
+    second: Texture_Cobwebs_Color_61
+  - first:
+      213: -131643690902648756
+    second: Texture_Cobwebs_Color_62
+  - first:
+      213: -3590758959944295791
+    second: Texture_Cobwebs_Color_63
+  - first:
+      213: -227237064588468020
+    second: Texture_Cobwebs_Color_64
+  - first:
+      213: -240229618206847385
+    second: Texture_Cobwebs_Color_65
+  - first:
+      213: -7919717253299540154
+    second: Texture_Cobwebs_Color_66
+  - first:
+      213: -2886247750668156440
+    second: Texture_Cobwebs_Color_67
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 3489
+        width: 810
+        height: 587
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd218c0a767567ed0800000000000000
+      internalID: -2416648047446977827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_1
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 2690
+        width: 881
+        height: 1034
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6278a34e569b24940800000000000000
+      internalID: 5278985560503519014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_2
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 3311
+        width: 1100
+        height: 785
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bf7c0c4686516030800000000000000
+      internalID: 3486162721362968497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_3
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 3221
+        width: 754
+        height: 875
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e2211046f0b1b680800000000000000
+      internalID: -8741010830066113821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_4
+      rect:
+        serializedVersion: 2
+        x: 2707
+        y: 3686
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2245e18eca760480800000000000000
+      internalID: -8933317783481662932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_5
+      rect:
+        serializedVersion: 2
+        x: 2736
+        y: 3688
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e2aa32b173721930800000000000000
+      internalID: 4112476341901370080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_6
+      rect:
+        serializedVersion: 2
+        x: 2807
+        y: 3187
+        width: 1110
+        height: 909
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3637d0e3edf525fb0800000000000000
+      internalID: -4660557256246594717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_7
+      rect:
+        serializedVersion: 2
+        x: 2716
+        y: 3672
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7dcf96beccf83050800000000000000
+      internalID: 5780648086487420287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_8
+      rect:
+        serializedVersion: 2
+        x: 2730
+        y: 3669
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 297bf6708d8cad090800000000000000
+      internalID: -8008868157161752686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_9
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 3298
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334deb8801b28ac40800000000000000
+      internalID: 5523712292983591987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_10
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 2668
+        width: 1064
+        height: 679
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bf17f83476e9b2a0800000000000000
+      internalID: -6721087582027440202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_11
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 3031
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbe9338572fd537c0800000000000000
+      internalID: -4092119326319731013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 2148
+        width: 786
+        height: 901
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6def12d0a2638eb70800000000000000
+      internalID: 8928445815498866390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_13
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 3039
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2461846f18180e10800000000000000
+      internalID: 2164006144060777517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_14
+      rect:
+        serializedVersion: 2
+        x: 2099
+        y: 2008
+        width: 1921
+        height: 1139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d57517302d11b7060800000000000000
+      internalID: 6952170043475056477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_15
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 3006
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c83868667a3b33f0800000000000000
+      internalID: -920077418634921783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_16
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 3028
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51c0789063e781000800000000000000
+      internalID: 6894169994234901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_17
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2990
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f73083247220aebd0800000000000000
+      internalID: -2600263467215092865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_18
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2961
+        width: 10
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f720911f6a3ea70800000000000000
+      internalID: 8855104846777450378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_19
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2946
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774b2aff0ce604db0800000000000000
+      internalID: -4809722626830060425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_20
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 2930
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d45548bee9716eb60800000000000000
+      internalID: 7774927778025329997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_21
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2919
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0bc8e42d150b5d80800000000000000
+      internalID: -8261003468749616372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_22
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 2925
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2887bdc1041646d00800000000000000
+      internalID: 965003148154075266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_23
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 2908
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c7694a74b12e930800000000000000
+      internalID: 4170926199416454274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_24
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 2911
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5232fc1e32b7ee10800000000000000
+      internalID: 2226944520601350746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_25
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2850
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 356db198e0e352080800000000000000
+      internalID: -9212889230565714349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_26
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 2794
+        width: 11
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 850b929ca59f78a50800000000000000
+      internalID: 6523456753586778200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_27
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 2774
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50bb3a47a37b033b0800000000000000
+      internalID: -5534722480345466107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_28
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2688
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b670bcc132942c570800000000000000
+      internalID: 8485425063075186539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_29
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 2682
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a59ef02916d588330800000000000000
+      internalID: 3713320566410701146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_30
+      rect:
+        serializedVersion: 2
+        x: 3347
+        y: 920
+        width: 714
+        height: 1811
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f348659e505592a80800000000000000
+      internalID: -8491162138552400833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_31
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 2618
+        width: 9
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f775478ef51de8e60800000000000000
+      internalID: 7966535000717023103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_32
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 2652
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78bf3ffc66dc68890800000000000000
+      internalID: -7456046291606045817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_33
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 2648
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 370c335ce291e8ce0800000000000000
+      internalID: -1401154745397952397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_34
+      rect:
+        serializedVersion: 2
+        x: 1658
+        y: 2645
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c7c6653e0a56f10800000000000000
+      internalID: 2262391286091512966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_35
+      rect:
+        serializedVersion: 2
+        x: 1642
+        y: 2642
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a8d20197a2cba900800000000000000
+      internalID: 696864592307083426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_36
+      rect:
+        serializedVersion: 2
+        x: 1649
+        y: 2639
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d0b6e74ce8b6260800000000000000
+      internalID: 7091919012810657094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_37
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 2595
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e17fd5892d1584dc0800000000000000
+      internalID: -3654581132669880546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_38
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 2102
+        width: 1101
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c68382f846e5cd850800000000000000
+      internalID: 6403096556205521004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_39
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 2368
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffd21680615b66640800000000000000
+      internalID: 5072941136513936895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_40
+      rect:
+        serializedVersion: 2
+        x: 1981
+        y: 2355
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e093e4543a490f0800000000000000
+      internalID: -1111083689993236961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_41
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 2349
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9ca53af9f6e59ef0800000000000000
+      internalID: -101921455226901348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_42
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 2158
+        width: 23
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c06dadf4b8ab617e0800000000000000
+      internalID: -1795042293957601780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_43
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 2153
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d82e16b3e9069c50800000000000000
+      internalID: 6671530771613624536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_44
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 2148
+        width: 49
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1d8a4048e6fbddc0800000000000000
+      internalID: -3613022798663217893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_45
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 2156
+        width: 38
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a4cd2d3afb982730800000000000000
+      internalID: 3974598170225001637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_46
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 2157
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea2b6ad627bd04b0800000000000000
+      internalID: -5472516594684187928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_47
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 2156
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d695d3f9b327ffa0800000000000000
+      internalID: -5767101516257847591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_48
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 2150
+        width: 26
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ed66773b26bb4a00800000000000000
+      internalID: 741886860362935781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_49
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 2158
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 396808f4b6e227d90800000000000000
+      internalID: -7101562623979649389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_50
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 2153
+        width: 21
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5be5880cffec98a30800000000000000
+      internalID: 4218130123851325109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_51
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 2159
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 503ebde68c2112400800000000000000
+      internalID: 297539702445826821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_52
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 2156
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83cd4cb9412c650c0800000000000000
+      internalID: -4587265776661767112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_53
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 2147
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b24dd5914cc3106d0800000000000000
+      internalID: -3026070661679426517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_54
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 2147
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71fdad73144dbd3f0800000000000000
+      internalID: -874872326018375913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_55
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 1103
+        width: 946
+        height: 946
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 491b0cb8de394afa0800000000000000
+      internalID: -5790340572430421612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_56
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 1103
+        width: 946
+        height: 946
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b67125a1590fde9e0800000000000000
+      internalID: -1590350570209536149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_57
+      rect:
+        serializedVersion: 2
+        x: 2348
+        y: 907
+        width: 1159
+        height: 1086
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e145698c0bffa30800000000000000
+      internalID: 4251310948823080528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_58
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 111
+        width: 946
+        height: 946
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: face6053a2e408ec0800000000000000
+      internalID: -3566764961692193617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_59
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 33
+        width: 993
+        height: 972
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c39c4226f2e260820800000000000000
+      internalID: 2884043392422299964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_60
+      rect:
+        serializedVersion: 2
+        x: 2383
+        y: 20
+        width: 1672
+        height: 841
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad0ea4991b66693e0800000000000000
+      internalID: -2047336067626245926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_61
+      rect:
+        serializedVersion: 2
+        x: 3842
+        y: 858
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c28f53e949fe2e1f0800000000000000
+      internalID: -1016987144243775444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_62
+      rect:
+        serializedVersion: 2
+        x: 3855
+        y: 851
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4883d6b2ce4c2ef0800000000000000
+      internalID: -131643690902648756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_63
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 383
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19a187620cf0b2ec0800000000000000
+      internalID: -3590758959944295791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_64
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 282
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc0e66df711b8dcf0800000000000000
+      internalID: -227237064588468020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_65
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 95
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ec04e5f688aacf0800000000000000
+      internalID: -240229618206847385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_66
+      rect:
+        serializedVersion: 2
+        x: 2152
+        y: 33
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64f6c8b5e13871290800000000000000
+      internalID: -7919717253299540154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Texture_Cobwebs_Color_67
+      rect:
+        serializedVersion: 2
+        x: 4047
+        y: 40
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e187a776fcf1f7d0800000000000000
+      internalID: -2886247750668156440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

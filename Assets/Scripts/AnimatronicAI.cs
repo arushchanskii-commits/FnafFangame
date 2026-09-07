@@ -12,34 +12,48 @@ public class AnimatronicAI : MonoBehaviour
     [Tooltip("Rooms in order from start to goal. The animatronic walks this list top to bottom.")]
     public List<Room> roomPath = new();
 
+    [Header("Freddy Door Paths")]
+    [Tooltip("Used only when this animatronic is Freddy. Freddy starts on one of these paths and switches to the other when blocked.")]
+    public List<Room> leftDoorPath = new();
+
+    public List<Room> rightDoorPath = new();
+
     [Header("Timer")]
-    [Tooltip("Seconds before the animatronic can start moving (initial delay).")]
+    [Tooltip("Seconds to wait after initialization before the first movement roll.")]
     public float initialDelay = 0f;
-    
+
     [Tooltip("Seconds between each movement attempt.")]
     public float tickInterval = 1f;
-    
-    [Header("Backward Movement")]
-    [Tooltip("Chance (0-100) to move backward on failed movement attempt. Only works for Bonnie and Chica.")]
-    [Range(0, 100)]
-    public int backwardMoveChance = 30;
-    
-    [Tooltip("Minimum path index to move back to (0 = start)")]
-    public int minBackwardIndex = 0;
 
     [Header("Room Visuals")]
     [Tooltip("One entry per room (same order as Room Path). Assign either a SpriteRenderer OR a GameObject – whichever is set will be shown/hidden. If both are set, both are toggled.")]
     public List<RoomVisual> roomVisuals = new();
 
+    [Tooltip("Freddy visuals for the leftDoorPath, in the same order as that path.")]
+    public List<RoomVisual> leftDoorVisuals = new();
+
+    [Tooltip("Freddy visuals for the rightDoorPath, in the same order as that path.")]
+    public List<RoomVisual> rightDoorVisuals = new();
+
     // ── Events ─────────────────────────────────────────────────────
     /// <summary>Fired when the animatronic reaches the last room (the office).</summary>
     public System.Action OnJumpscare;
+
+    /// <summary>Fired whenever the animatronic successfully moves to a new room.</summary>
+    public System.Action OnMoved;
 
     // ── Runtime state ──────────────────────────────────────────────
     public Room CurrentRoom { get; private set; }
     private int       _pathIndex   = 0;
     private bool      _active      = false;
     private Coroutine _aiCoroutine = null;
+    private FreddyPath _freddyPath = FreddyPath.Left;
+
+    private enum FreddyPath
+    {
+        Left,
+        Right
+    }
 
     // ──────────────────────────────────────────────────────────────
 
@@ -57,15 +71,19 @@ public class AnimatronicAI : MonoBehaviour
     /// </summary>
     public void Initialize(int score)
     {
-        if (roomPath == null || roomPath.Count == 0)
+        if (IsFreddy)
+            PickRandomFreddyPath();
+
+        List<Room> path = GetCurrentPath();
+        if (path == null || path.Count == 0)
         {
-            Debug.LogWarning($"[{animatronicName}] roomPath is empty – AI will not move.");
+            Debug.LogWarning($"[{animatronicName}] has no configured movement path – AI will not move.");
             return;
         }
 
         aiScore     = Mathf.Clamp(score, 0, 20);
         _pathIndex  = 0;
-        CurrentRoom = roomPath[0];
+        CurrentRoom = path[0];
         _active     = true;
 
         UpdateVisuals();
@@ -99,10 +117,14 @@ public class AnimatronicAI : MonoBehaviour
     /// </summary>
     public void ResetToRoom(int pathIndex)
     {
-        if (roomPath == null || roomPath.Count == 0) return;
+        if (IsFreddy && pathIndex == 0)
+            PickRandomFreddyPath();
 
-        _pathIndex  = Mathf.Clamp(pathIndex, 0, roomPath.Count - 1);
-        CurrentRoom = roomPath[_pathIndex];
+        List<Room> path = GetCurrentPath();
+        if (path == null || path.Count == 0) return;
+
+        _pathIndex  = Mathf.Clamp(pathIndex, 0, path.Count - 1);
+        CurrentRoom = path[_pathIndex];
         _active     = true;
 
         UpdateVisuals();
@@ -120,6 +142,9 @@ public class AnimatronicAI : MonoBehaviour
 
     private IEnumerator AiLoop()
     {
+        if (initialDelay > 0f)
+            yield return new WaitForSeconds(initialDelay);
+
         while (_active)
         {
             yield return new WaitForSeconds(tickInterval);
@@ -129,7 +154,11 @@ public class AnimatronicAI : MonoBehaviour
 
     private void TryMove()
     {
-        if (_pathIndex >= roomPath.Count - 1)
+        List<Room> path = GetCurrentPath();
+        if (path == null || path.Count == 0)
+            return;
+
+        if (_pathIndex >= path.Count - 1)
         {
             Debug.Log($"[{animatronicName}] reached the end of the path: {CurrentRoom.roomName}");
             TriggerJumpscare();
@@ -141,63 +170,57 @@ public class AnimatronicAI : MonoBehaviour
 
         if (roll <= aiScore)
         {
-            Room nextRoom = roomPath[_pathIndex + 1];
-
-            if (CurrentRoom is DoorRoom currentDoorRoom)
+            if (CurrentRoom is DoorRoom currentDoorRoom && !currentDoorRoom.TryEnter(this))
             {
-                if (!currentDoorRoom.TryEnter(this))
-                {
-                    Debug.Log($"[{animatronicName}] blocked by door! Staying in {CurrentRoom.roomName}");
-                    return;
-                }
+                if (IsFreddy)
+                    SwitchFreddyPath();
+
+                Debug.Log($"[{animatronicName}] blocked by door; current path is now {GetPathName()}.");
+                return;
             }
 
             _pathIndex++;
-            CurrentRoom = nextRoom;
+            CurrentRoom = path[_pathIndex];
             UpdateVisuals();
+            OnMoved?.Invoke();
             Debug.Log($"[{animatronicName}] moved to: {CurrentRoom.roomName}");
-            
-            if (CurrentRoom is Room nextRoomData && nextRoomData.cameraIndex >= 0)
-            {
-                if (CameraSystem.Instance != null)
-                {
-                    CameraSystem.Instance.TriggerGlitchEffect(nextRoomData.cameraIndex);
-                }
-            }
 
-            if (_pathIndex >= roomPath.Count - 1)
+            if (_pathIndex >= path.Count - 1)
                 TriggerJumpscare();
         }
-        else
-        {
-            int backwardRoll = Random.Range(1, 101);
-            Debug.Log($"[{animatronicName}] Failed move - Backward roll: {backwardRoll} (needs <= {backwardMoveChance})");
-            
-            if (backwardRoll <= backwardMoveChance && _pathIndex > minBackwardIndex)
-            {
-                int maxBackIndex = _pathIndex - 1;
-                if (maxBackIndex >= minBackwardIndex)
-                {
-                    int newIndexPath = Random.Range(minBackwardIndex, maxBackIndex + 1);
-                    
-                    if (newIndexPath != _pathIndex)
-                    {
-                        _pathIndex = newIndexPath;
-                        CurrentRoom = roomPath[_pathIndex];
-                        UpdateVisuals();
-                        Debug.Log($"[{animatronicName}] moved BACK to: {CurrentRoom.roomName} (index {_pathIndex})");
-                        
-                        if (CurrentRoom is Room backwardRoomData && backwardRoomData.cameraIndex >= 0)
-                        {
-                            if (CameraSystem.Instance != null)
-                            {
-                                CameraSystem.Instance.TriggerGlitchEffect(backwardRoomData.cameraIndex);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    }
+
+    private bool IsFreddy => animatronicName.ToLowerInvariant().Contains("freddy");
+
+    private List<Room> GetCurrentPath()
+    {
+        if (!IsFreddy)
+            return roomPath;
+
+        return _freddyPath == FreddyPath.Left ? leftDoorPath : rightDoorPath;
+    }
+
+    private void PickRandomFreddyPath()
+    {
+        _freddyPath = Random.Range(0, 2) == 0 ? FreddyPath.Left : FreddyPath.Right;
+    }
+
+    private void SwitchFreddyPath()
+    {
+        _freddyPath = _freddyPath == FreddyPath.Left ? FreddyPath.Right : FreddyPath.Left;
+        _pathIndex = 0;
+
+        List<Room> path = GetCurrentPath();
+        if (path == null || path.Count == 0)
+            return;
+
+        CurrentRoom = path[0];
+        UpdateVisuals();
+    }
+
+    private string GetPathName()
+    {
+        return IsFreddy ? _freddyPath.ToString() : "main";
     }
 
     private void TriggerJumpscare()
@@ -212,14 +235,31 @@ public class AnimatronicAI : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        for (int i = 0; i < roomVisuals.Count; i++)
-            roomVisuals[i].SetVisible(i == _pathIndex);
+        HideAllVisuals();
+
+        List<RoomVisual> visuals = GetCurrentVisuals();
+        if (_pathIndex >= 0 && _pathIndex < visuals.Count)
+            visuals[_pathIndex].SetVisible(true);
     }
 
     private void HideAllVisuals()
     {
         foreach (var v in roomVisuals)
             v.SetVisible(false);
+
+        foreach (var v in leftDoorVisuals)
+            v.SetVisible(false);
+
+        foreach (var v in rightDoorVisuals)
+            v.SetVisible(false);
+    }
+
+    private List<RoomVisual> GetCurrentVisuals()
+    {
+        if (!IsFreddy)
+            return roomVisuals;
+
+        return _freddyPath == FreddyPath.Left ? leftDoorVisuals : rightDoorVisuals;
     }
 }
 

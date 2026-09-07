@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 267616709}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.43, y: -9.32, z: 0}
+  m_LocalPosition: {x: 19.99, y: -12.68, z: 0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2160,22 +2160,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1082597045380334899, guid: 92cde35de35022d44b4933591164459d, type: 3}
   m_PrefabInstance: {fileID: 1934155073}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1114600132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114600131}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f6344c9cbddf1b4fb687c6ed2ec809b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPoint: {fileID: 1661164380}
-  width: 0.1
-  color: {r: 0.039215688, g: 0.9960785, b: 0.007843138, a: 1}
-  material: {fileID: 0}
 --- !u!96 &1114600139
 TrailRenderer:
   serializedVersion: 3
@@ -3879,9 +3863,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1082597045380334899, guid: 92cde35de35022d44b4933591164459d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1114600132}
     - targetCorrespondingSourceObject: {fileID: 1082597045380334899, guid: 92cde35de35022d44b4933591164459d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1114600139}
