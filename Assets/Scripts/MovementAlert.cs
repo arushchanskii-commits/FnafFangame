@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Shows a UI GameObject and plays a sound whenever a tracked animatronic moves
+/// Shows a UI GameObject and plays a sound whenever an animatronic moves
 /// while the player is watching the cameras.
 /// Attach this to any persistent GameObject (e.g. the GameManager or HUD).
 /// </summary>
 public class MovementAlert : MonoBehaviour
 {
     [Header("Animatronics to Track")]
-    [Tooltip("All animatronics that should trigger the alert when they move.")]
+    [Tooltip("Optional filter. Leave empty to track every AnimatronicAI in the scene.")]
     public List<AnimatronicAI> animatronics = new();
 
     [Header("Alert UI")]
@@ -21,8 +21,11 @@ public class MovementAlert : MonoBehaviour
     public float displayDuration = 1.5f;
 
     [Header("Alert Sound")]
-    [Tooltip("Sound to play when the alert triggers. Needs an AudioSource on this GameObject.")]
+    [Tooltip("Sound to play when the alert triggers.")]
     public AudioClip alertSound;
+
+    [Tooltip("Optional AudioSource used to play the alert sound. If empty, the sound plays at this object's position.")]
+    public AudioSource audioSource;
 
     private AudioSource _audioSource;
     private Coroutine   _hideRoutine;
@@ -31,7 +34,7 @@ public class MovementAlert : MonoBehaviour
 
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = audioSource != null ? audioSource : GetComponent<AudioSource>();
 
         if (alertObject != null)
             alertObject.SetActive(false);
@@ -39,28 +42,25 @@ public class MovementAlert : MonoBehaviour
 
     private void OnEnable()
     {
-        foreach (var anim in animatronics)
-        {
-            if (anim != null)
-                anim.OnMoved += OnAnimatronicMoved;
-        }
+        AnimatronicAI.OnAnyMoved += OnAnimatronicMoved;
     }
 
     private void OnDisable()
     {
-        foreach (var anim in animatronics)
-        {
-            if (anim != null)
-                anim.OnMoved -= OnAnimatronicMoved;
-        }
+        AnimatronicAI.OnAnyMoved -= OnAnimatronicMoved;
+
+        HideAlert();
     }
 
     // ──────────────────────────────────────────────────────────────
 
-    private void OnAnimatronicMoved()
+    private void OnAnimatronicMoved(AnimatronicAI animatronic)
     {
+        if (animatronics.Count > 0 && !animatronics.Contains(animatronic))
+            return;
+
         // Only trigger when the player has the camera monitor open
-        if (CameraManager.Instance == null || !CameraManager.Instance.IsWatchingCameras)
+        if (!IsWatchingCameras())
             return;
 
         ShowAlert();
@@ -80,14 +80,36 @@ public class MovementAlert : MonoBehaviour
         _hideRoutine = StartCoroutine(HideAfterDelay());
     }
 
+    private void Update()
+    {
+        if (alertObject != null && alertObject.activeSelf && !IsWatchingCameras())
+            HideAlert();
+    }
+
     private IEnumerator HideAfterDelay()
     {
         yield return new WaitForSeconds(displayDuration);
 
+        HideAlert();
+    }
+
+    private void HideAlert()
+    {
         if (alertObject != null)
             alertObject.SetActive(false);
 
-        _hideRoutine = null;
+        if (_hideRoutine != null)
+        {
+            StopCoroutine(_hideRoutine);
+            _hideRoutine = null;
+        }
+    }
+
+    private bool IsWatchingCameras()
+    {
+        bool watchingThroughCameraManager = CameraManager.Instance != null && CameraManager.Instance.IsWatchingCameras;
+        bool watchingThroughCameraSystem = CameraSystem.Instance != null && CameraSystem.Instance.IsWatchingCameras;
+        return watchingThroughCameraManager || watchingThroughCameraSystem;
     }
 
     private void PlaySound()

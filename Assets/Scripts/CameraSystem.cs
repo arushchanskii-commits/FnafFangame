@@ -22,6 +22,9 @@ public class CameraSystem : MonoBehaviour
     private bool _monitorUp;
     private Coroutine _glitchCoroutine;
 
+    /// <summary>True while the camera monitor is raised.</summary>
+    public bool IsWatchingCameras => _monitorUp;
+
     // ----------------------------------------------------------------
 
     private void Awake()

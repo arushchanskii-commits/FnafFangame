@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class MainCameraButton : MonoBehaviour
 {
+    /// <summary>Fired immediately when the main camera button requests opening or closing.</summary>
+    public static System.Action<bool> OnCameraToggleRequested;
+
     [Header("Camera Buttons")]
     public GameObject[] cameraButtons;
     
@@ -11,6 +14,14 @@ public class MainCameraButton : MonoBehaviour
     public AudioClip openSound;
     public AudioClip closeSound;
     public float soundVolume = 1f;
+
+    [Header("Opening Delay")]
+    [Min(0f)]
+    [Tooltip("Seconds to wait after pressing the main camera button before opening the cameras and triggering their effects.")]
+    public float openDelay = 0f;
+
+    [Tooltip("Seconds after closing before the cameras can be opened again.")]
+    public float reopenDelay = 0.3f;
     
     [Header("Animation")]
     public Animator animator;
@@ -44,8 +55,7 @@ public class MainCameraButton : MonoBehaviour
     private AudioSource audioSource;
     public bool isCameraOpen = false;
     public bool isAnimating = false;
-    private float lastToggleTime = 0f;
-    private float toggleCooldown = 0.3f;
+    private float _nextOpenTime;
     private FNAFCameraMove mainCameraMove;
     private bool mainCameraMoveWasEnabled;
 
@@ -107,11 +117,51 @@ public class MainCameraButton : MonoBehaviour
             return;
         }
 
+        if (!isCameraOpen && Time.time < _nextOpenTime)
+        {
+            return;
+        }
+
+        OnCameraToggleRequested?.Invoke(!isCameraOpen);
+
+        if (!isCameraOpen && openDelay > 0f)
+        {
+            StartCoroutine(OpenCamerasAfterDelay());
+            return;
+        }
+
+        ToggleCameraButtonsImmediate();
+    }
+
+    private IEnumerator OpenCamerasAfterDelay()
+    {
+        isAnimating = true;
+        yield return new WaitForSeconds(openDelay);
+        isAnimating = false;
+
+        if (!isCameraOpen)
+        {
+            ToggleCameraButtonsImmediate();
+        }
+    }
+
+    private void ToggleCameraButtonsImmediate()
+    {
+        if (isAnimating)
+        {
+            return;
+        }
+
         ResolveAnimationComponents();
         
         Debug.Log("ToggleCameraButtons called!");
         isCameraOpen = !isCameraOpen;
         Debug.Log($"Camera state: {isCameraOpen}");
+
+        if (!isCameraOpen)
+        {
+            _nextOpenTime = Time.time + Mathf.Max(0f, reopenDelay);
+        }
         
         foreach (GameObject button in cameraButtons)
         {
@@ -668,6 +718,7 @@ public class MainCameraButton : MonoBehaviour
         
         isAnimating = false;
         isCameraOpen = false;
+        _nextOpenTime = Time.time + Mathf.Max(0f, reopenDelay);
         
         // Hide camera buttons immediately
         foreach (GameObject button in cameraButtons)

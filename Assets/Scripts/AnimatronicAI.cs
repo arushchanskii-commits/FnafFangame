@@ -42,6 +42,9 @@ public class AnimatronicAI : MonoBehaviour
     /// <summary>Fired whenever the animatronic successfully moves to a new room.</summary>
     public System.Action OnMoved;
 
+    /// <summary>Fired whenever any animatronic successfully moves to a new room.</summary>
+    public static System.Action<AnimatronicAI> OnAnyMoved;
+
     // ── Runtime state ──────────────────────────────────────────────
     public Room CurrentRoom { get; private set; }
     private int       _pathIndex   = 0;
@@ -183,6 +186,7 @@ public class AnimatronicAI : MonoBehaviour
             CurrentRoom = path[_pathIndex];
             UpdateVisuals();
             OnMoved?.Invoke();
+            OnAnyMoved?.Invoke(this);
             Debug.Log($"[{animatronicName}] moved to: {CurrentRoom.roomName}");
 
             if (_pathIndex >= path.Count - 1)
