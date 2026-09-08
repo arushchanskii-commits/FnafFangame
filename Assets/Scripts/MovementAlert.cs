@@ -36,6 +36,9 @@ public class MovementAlert : MonoBehaviour
     {
         _audioSource = audioSource != null ? audioSource : GetComponent<AudioSource>();
 
+        if (_audioSource == null)
+            _audioSource = gameObject.AddComponent<AudioSource>();
+
         if (alertObject != null)
             alertObject.SetActive(false);
     }
@@ -98,6 +101,9 @@ public class MovementAlert : MonoBehaviour
         if (alertObject != null)
             alertObject.SetActive(false);
 
+        if (_audioSource != null)
+            _audioSource.Stop();
+
         if (_hideRoutine != null)
         {
             StopCoroutine(_hideRoutine);
@@ -118,7 +124,5 @@ public class MovementAlert : MonoBehaviour
 
         if (_audioSource != null)
             _audioSource.PlayOneShot(alertSound);
-        else
-            AudioSource.PlayClipAtPoint(alertSound, transform.position);
     }
 }
