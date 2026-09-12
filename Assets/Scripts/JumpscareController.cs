@@ -78,6 +78,8 @@ public class JumpscareController : MonoBehaviour
     {
         if (isJumpscareActive) return;
         isJumpscareActive = true;
+
+        HideCameraPivotObjects();
         
         // Disable camera movement script immediately
         if (cameraMoveScript != null)
@@ -108,6 +110,21 @@ public class JumpscareController : MonoBehaviour
         
         // Wait 2 seconds then show death screen
         Invoke(nameof(ShowDeathScreen), 2f);
+    }
+
+    private void HideCameraPivotObjects()
+    {
+        RotateAroundPivotOnCamera[] pivotObjects = FindObjectsByType<RotateAroundPivotOnCamera>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None);
+
+        foreach (RotateAroundPivotOnCamera pivotObject in pivotObjects)
+        {
+            if (pivotObject.gameObject != gameObject)
+            {
+                pivotObject.gameObject.SetActive(false);
+            }
+        }
     }
     
     private void CloseCamerasImmediately()

@@ -24,9 +24,15 @@ public class MiniGameSwapper : MonoBehaviour
     private List<MiniGameSceneEntry> miniGameSceneEntries = new List<MiniGameSceneEntry>();
 
     private int currentIndex;
+    private int deathCheckpointIndex = -1;
     private static MiniGameSwapper instance;
     private readonly List<string> loadedSceneNames = new List<string>();
     private Coroutine sceneTimerCoroutine;
+
+    public static bool HasDeathCheckpoint
+    {
+        get { return instance != null && instance.deathCheckpointIndex >= 0; }
+    }
 
     private void Awake()
     {
@@ -40,8 +46,38 @@ public class MiniGameSwapper : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Menu Screen")
+        {
+            EnsureContinueButton();
+        }
+        else
+        {
+            ContiniueButton[] continueButtons = FindObjectsByType<ContiniueButton>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            foreach (ContiniueButton continueButton in continueButtons)
+            {
+                continueButton.Hide();
+            }
+        }
+    }
+
     private void Start()
     {
+        EnsureContinueButton();
+
         if (miniGameSceneEntries == null || miniGameSceneEntries.Count == 0)
         {
             Debug.LogWarning("MiniGameSwapper: No minigame scenes assigned.");
@@ -213,5 +249,50 @@ public class MiniGameSwapper : MonoBehaviour
 
         instance.currentIndex = 0;
         instance.LoadSceneEntry(0, true);
+    }
+
+    public static void MarkDeathCheckpoint()
+    {
+        if (instance == null)
+        {
+            Debug.LogWarning("MiniGameSwapper: Cannot save a death checkpoint without an instance.");
+            return;
+        }
+
+        if (instance.currentIndex > 0 && instance.currentIndex < instance.miniGameSceneEntries.Count)
+        {
+            instance.deathCheckpointIndex = instance.currentIndex;
+            Debug.Log($"MiniGameSwapper: Saved death checkpoint at scene index {instance.deathCheckpointIndex}.");
+        }
+    }
+
+    public static void ContinueFromDeathCheckpoint()
+    {
+        if (instance == null || instance.deathCheckpointIndex < 0)
+        {
+            Debug.LogWarning("MiniGameSwapper: No death checkpoint is available.");
+            return;
+        }
+
+        int checkpointIndex = instance.deathCheckpointIndex;
+        instance.deathCheckpointIndex = -1;
+        instance.currentIndex = checkpointIndex;
+        instance.LoadSceneEntry(checkpointIndex, false);
+    }
+
+    private void EnsureContinueButton()
+    {
+        if (SceneManager.GetActiveScene().name != "Menu Screen")
+        {
+            return;
+        }
+
+        ContiniueButton[] continueButtons = FindObjectsByType<ContiniueButton>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None);
+        foreach (ContiniueButton continueButton in continueButtons)
+        {
+            continueButton.Refresh();
+        }
     }
 }

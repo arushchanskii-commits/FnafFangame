@@ -98,6 +98,11 @@ public class Death : MonoBehaviour
             return;
         }
 
+        if (sceneName == "DeathScreen")
+        {
+            MiniGameSwapper.MarkDeathCheckpoint();
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 
